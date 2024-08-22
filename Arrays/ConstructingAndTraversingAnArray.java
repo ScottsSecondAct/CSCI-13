@@ -6,6 +6,7 @@ public class ConstructingAndTraversingAnArray {
     boolean[] booleans = new boolean[4]; // Array of booleans with a length of 4
     char[] chars = new char[17]; // Array of characters with a length of 20
     String[] strings = new String[3]; // Array of strings with a length of 3
+    Color[] colors = new Color[7]; // Array of colors with a length of 6
 
     // Assigning values to the integers array
     integers[0] = 1;
@@ -55,6 +56,14 @@ public class ConstructingAndTraversingAnArray {
     strings[1] = "Java";
     strings[2] = "World";
 
+    colors[0] = Color.RED;
+    colors[1] = Color.BLUE;
+    colors[2] = Color.YELLOW;
+    colors[3] = Color.GREEN;
+    colors[4] = Color.ORANGE;
+    colors[5] = Color.PURPLE;
+    colors[6] = new Color("Peach", 237, 209, 176);
+
     // Traversing the integers array
     for (int i = 0; i < integers.length; i++) {
       System.out.println("The element at index " + i + " is: " + integers[i]);
@@ -82,6 +91,12 @@ public class ConstructingAndTraversingAnArray {
     // Traversing the strings array
     for (int i = 0; i < strings.length; i++) {
       System.out.println("The element at index " + i + " is: " + strings[i]);
+    }
+    System.out.println();
+
+    // Traversing the colors array
+    for (int i = 0; i < colors.length; i++) {
+      System.out.println("The element at index " + i + " is: " + colors[i]);
     }
     System.out.println();
 
