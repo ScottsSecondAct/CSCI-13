@@ -1,4 +1,9 @@
 public class AccessingAnArray {
+  /*
+   * This program demonstrates accessing an array and handling exceptions.
+   *
+   * @param args The command-line arguments
+   */
   public static void main(String[] args) {
 
     // Declare the array and assign ascending values to it
@@ -36,6 +41,7 @@ public class AccessingAnArray {
     }
 
     try {
+      // Access an index that is out of bounds because the Condition part of the for loop is incorrect.
       for (int i = 0; i <= integers.length; i++) {
         System.out.println("integers[" + i + "] is " + integers[i]);
       }
