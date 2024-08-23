@@ -1,3 +1,5 @@
+import color.Color;
+
 public class ConstructingAndTraversingAnArray {
   public static void main(String[] args) {
     // Declaring arrays
