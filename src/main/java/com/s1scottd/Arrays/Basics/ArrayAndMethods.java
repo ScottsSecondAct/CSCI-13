@@ -2,7 +2,11 @@ import java.util.Arrays;
 import utils.ArrayUtils;
 
 public class ArrayAndMethods {
-
+  /*
+   * This program demonstrates using methods with arrays.
+   *
+   * @param args The command-line arguments
+   */
   public static void main(String[] args) {
     // Creating an array of integers
     int[] numbers = { 5, 12, 3, 19, 6, 1, 8 };
@@ -66,6 +70,7 @@ public class ArrayAndMethods {
     }
   }
 
+  // Method to create a sorted copy of the array in ascending order
   public static int[] createSortedArray(int[] array) {
     int[] sortedArray = Arrays.copyOf(array, array.length);
     for (int i = 0; i < sortedArray.length - 1; i++) {

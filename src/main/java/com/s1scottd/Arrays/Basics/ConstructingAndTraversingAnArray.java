@@ -1,6 +1,11 @@
 import color.Color;
 
 public class ConstructingAndTraversingAnArray {
+  /*
+   * This program demonstrates constructing and traversing an array.
+   *
+   * @param args The command-line arguments
+   */
   public static void main(String[] args) {
     // Declaring arrays
     int[] integers = new int[5]; // Array of integers with a length of 5
@@ -101,9 +106,5 @@ public class ConstructingAndTraversingAnArray {
       System.out.println("The element at index " + i + " is: " + colors[i]);
     }
     System.out.println();
-
-    // Out of bounds exceptions
-    // integers[5] = 6; // This will throw an ArrayIndexOutOfBoundsException
-    // integers[-1] = 0; // This will throw an ArrayIndexOutOfBoundsException
   }
 }

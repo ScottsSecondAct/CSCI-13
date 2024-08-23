@@ -2,6 +2,11 @@ import color.Color;
 import utils.ArrayUtils;
 
 public class InitializingAnArray {
+  /*
+   * This program demonstrates initializing an array.
+   *
+   * @param args The command-line arguments
+   */
   public static void main(String[] args) {
     // Tedious way to initialize an array
     int[] integers1 = new int[5]; // Array of integers with a length of 5

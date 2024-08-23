@@ -1,4 +1,9 @@
 public class RandomAccess {
+  /*
+   * This program demonstrates random access of elements in an array.
+   *
+   * @param args The command-line arguments
+   */
   public static void main(String[] args) {
     // Initialize an array with some elements
     int[] numbers = { 10, 20, 30, 40, 50 };
