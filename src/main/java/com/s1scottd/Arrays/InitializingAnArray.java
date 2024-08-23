@@ -1,3 +1,6 @@
+import color.Color;
+import utils.ArrayUtils;
+
 public class InitializingAnArray {
   public static void main(String[] args) {
     // Tedious way to initialize an array

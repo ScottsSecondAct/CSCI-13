@@ -1,3 +1,5 @@
+package utils;
+
 public class ArrayUtils<T> {
   public static <T> void printArray(T[] array, String name) {
     for (int i = 0; i < array.length; i++) {
