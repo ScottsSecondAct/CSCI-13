@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import utils.ArrayUtils;
 
 public class ArrayAndMethods {
   /*
@@ -13,7 +12,7 @@ public class ArrayAndMethods {
 
     // Print the array elements
     System.out.println("Original array:");
-    ArrayUtils.printArray(numbers);
+    System.out.println(Arrays.toString(numbers));
     System.out.println();
 
     // Find and print the maximum value in the array
@@ -24,19 +23,19 @@ public class ArrayAndMethods {
     // Return a sorted array, without modifying the argument, in ascending order
     int[] sortedArray = createSortedArray(numbers);
     System.out.println("Sort copy of array and return sorted copy:");
-    ArrayUtils.printArray(sortedArray);
+    System.out.println(Arrays.toString(sortedArray));
     System.out.println();
     System.out.println("Original array:");
-    ArrayUtils.printArray(numbers);
+    System.out.println(Arrays.toString(numbers));
     System.out.println();
 
     // Sort the array in ascending order
     sortArray(numbers);
     System.out.println("Sorted array:");
-    ArrayUtils.printArray(numbers);
+    System.out.println(Arrays.toString(numbers));
     System.out.println();
     System.out.println("Original array:");
-    ArrayUtils.printArray(numbers);
+    System.out.println(Arrays.toString(numbers));
     System.out.println();
 
     // Find and print the average of the array elements

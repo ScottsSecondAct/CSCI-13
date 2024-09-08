@@ -1,3 +1,4 @@
+package FunWithArrays;
 public class OddsAndEvens {
   public static void main(String[] args) {
     int[] odds = new int[10];

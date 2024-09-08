@@ -1,3 +1,4 @@
+package FunWithArrays;
 import java.util.Scanner;
 
 public class AboveAndBelowAverage {
