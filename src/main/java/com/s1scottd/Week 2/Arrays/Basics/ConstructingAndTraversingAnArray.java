@@ -1,4 +1,4 @@
-import color.Color;
+import java.awt.Color;
 
 public class ConstructingAndTraversingAnArray {
   /*
@@ -68,8 +68,8 @@ public class ConstructingAndTraversingAnArray {
     colors[2] = Color.YELLOW;
     colors[3] = Color.GREEN;
     colors[4] = Color.ORANGE;
-    colors[5] = Color.PURPLE;
-    colors[6] = new Color("Peach", 237, 209, 176);
+    colors[5] = new Color(160, 32, 240); // Purple color
+    colors[6] = new Color(237, 209, 176); // Peach color
 
     // Traversing the integers array
     for (int i = 0; i < integers.length; i++) {
@@ -103,7 +103,7 @@ public class ConstructingAndTraversingAnArray {
 
     // Traversing the colors array
     for (int i = 0; i < colors.length; i++) {
-      System.out.println("The element at index " + i + " is: " + colors[i]);
+      System.out.println("The element at index " + i + " is: " + colors[i].toString());
     }
     System.out.println();
   }

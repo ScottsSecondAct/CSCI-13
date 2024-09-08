@@ -1,3 +1,4 @@
+package FunWithArrays;
 public class JaggedArray {
   /*
    * The code below creates a jagged array of integers. The array is 5 elements

@@ -1,7 +1,5 @@
 import java.util.Arrays;
 
-import utils.ArrayUtils;
-
 public class ArraysClass {
   /*
    * This program demonstrates using the Arrays class to work with arrays.
@@ -15,11 +13,11 @@ public class ArraysClass {
     int[] numbers3 = { 10, 20, 3, 40, 50 };
 
     // Print the arrays
-    ArrayUtils.printArray(numbers1, "numbers1");
+    System.out.println(Arrays.toString(numbers1));
     System.out.println();
-    ArrayUtils.printArray(numbers2, "numbers2");
+    System.out.println(Arrays.toString(numbers2));
     System.out.println();
-    ArrayUtils.printArray(numbers3, "numbers3");
+    System.out.println(Arrays.toString(numbers3));
     System.out.println();
 
     // Search for an element in the array
@@ -29,10 +27,10 @@ public class ArraysClass {
 
     // Sort the array in ascending order
     System.out.println("numbers3 before sorting:");
-    ArrayUtils.printArray(numbers3);
+    System.out.println(Arrays.toString(numbers3));
     Arrays.sort(numbers3);
     System.out.println("numbers3 after sorting:");
-    ArrayUtils.printArray(numbers3);
+    System.out.println(Arrays.toString(numbers3));
     System.out.println();
 
     // Compare two arrays
@@ -45,18 +43,18 @@ public class ArraysClass {
     System.out.println("Create new array with a length of 5 and fill it with: " + fillValue);
     int[] numbers4 = new int[5];
     Arrays.fill(numbers4, fillValue);
-    ArrayUtils.printArray(numbers4, "numbers4");
+    System.out.println(Arrays.toString(numbers4));
 
     // Copy an array
     System.out.println("Copy an array:");
     int[] numbers5 = Arrays.copyOf(numbers1, numbers1.length);
     System.out.println("Copy numbers1 into a new array named numbers5:");
-    ArrayUtils.printArray(numbers5);
+    System.out.println(Arrays.toString(numbers5));
 
     // Copy a range of an array
     System.out.println("Copy a range of an array:");
     int[] numbers6 = Arrays.copyOfRange(numbers1, 1, 4);
     System.out.println("Copy numbers1 from index 1 to 4 into a new array named numbers6:");
-    ArrayUtils.printArray(numbers6);
+    System.out.println(Arrays.toString(numbers6));
   }
 }

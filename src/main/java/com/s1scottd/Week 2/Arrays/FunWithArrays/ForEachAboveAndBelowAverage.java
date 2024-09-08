@@ -1,3 +1,4 @@
+package FunWithArrays;
 public class ForEachAboveAndBelowAverage {
   public static void main(String[] args) {
     int grades[] = { 90, 80, 70, 60, 50 };
