@@ -1,0 +1,91 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "LibraryTest",
+      "request": "launch",
+      "mainClass": "LibraryTest",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "PolymorphismDemo",
+      "request": "launch",
+      "mainClass": "PolymorphismDemo",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "PolymorphismDemo",
+      "request": "launch",
+      "mainClass": "Polymorphism.PolymorphismDemo",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "ShapeTest",
+      "request": "launch",
+      "mainClass": "Inheritance.ShapeTest",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "CarTest",
+      "request": "launch",
+      "mainClass": "Composition.CarTest",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "ShapeTest",
+      "request": "launch",
+      "mainClass": "ShapeTest",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "CarTest",
+      "request": "launch",
+      "mainClass": "CarTest",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "DavisCaesarCipher",
+      "request": "launch",
+      "mainClass": "DavisCaesarCipher",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "CircleTest",
+      "request": "launch",
+      "mainClass": "CircleTest",
+      "projectName": "CSCI-13_c423d4bc"
+    },
+    {
+      "type": "java",
+      "name": "WheelOfMisfortune",
+      "request": "launch",
+      "mainClass": "WheelOfMisfortune",
+      "projectName": "CSCI-13_c423d4bc"
+    }
+  ]
+}
