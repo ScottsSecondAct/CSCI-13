@@ -11,6 +11,7 @@ public class PolymorphismTest {
     Employee[] employees = { new Developer(), new Designer() };
     for (Employee employee : employees) {
       employee.work();
+      //employee.progam()
     }
   }
 }

@@ -5,4 +5,8 @@ public class Designer extends Employee {
   void work() {
     System.out.println("Designing interfaces.");
   }
+
+  void design() {
+    System.out.println("Designing.");
+  }
 }
