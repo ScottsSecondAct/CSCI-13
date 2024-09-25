@@ -10,61 +10,95 @@ Directory Structure
     │   └── Git and GitHub FAQ.docx
     │   └── Tutorial on Git and GitHub.docx
     │   └── World Time Api Lab.docx
+    │   └── Week 6 Lab.docx
     │     ...
     ├── /src
-    │   ├── /Week2
+    │   ├── /week2
     │     ...
-    │   ├── /Week3
+    │   ├── /week3
     │     ...
-    │   ├── /Week4
+    │   ├── /week4
     │     ...
-    │   ├── /Week5
+    │   ├── /week5
     │     ...
-    │   ├── /Week6
-    │   │   ├── /Assignment Solution
-    │   │   │   └── Car.java
-    │   │   ├── /Classroom Exercises
-    │   │   │   └── Car.java
-    │   │   ├── /Inheritance
-    │   │   │   └── Car.java
-    │   │   │   └── Vehicle.java
-    │   │   │   └── InheritanceTest.java
-    │   │   ├── /Polymorphism
-    │   │   │   └── Employee.java
-    │   │   │   └── Developer.java
-    │   │   │   └── PolymorphismTest.java
-    │   │   ├── /Objectclass
+    │   ├── /week6
+    │   │   ├── /abstract_classes
+    │   │   │   └── AbstractClassMultiplsMethodsTest.java
+    │   │   │   └── Circle.java
+    │   │   │   └── Rectangle.java
+    │   │   │   └── Shape.java
+    │   │   ├── /assignment_solution
+    │   │   │   └── Book.java
+    │   │   │   └── Inventory.java
+    │   │   │   └── Library.java
+    │   │   │   └── LibraryTest.jar
+    │   │   │   └── LibraryTest.java
+    │   │   │   └── Manifest.txt.java
+    │   │   │   └── Patron.java
     │   │   │   └── Person.java
-    │   │   │   └── ObjectClassTest.java
-    │   │   ├── /Has_a_is_a
-    │   │   │   └── Engine.java
+    │   │   ├── /classroom_exercises
     │   │   │   └── Car.java
-    │   │   │   └── HasAIsATest.java
-    │   │   ├── /Interfaces
+    │   │   ├── /default_methods_in_interfaces
+    │   │   │   └── CanWalk.java
+    │   │   │   └── DefaultMethodTest.java.java
+    │   │   │   └── HumanWalk.java
+    │   │   ├── /has_a_relationship
+    │   │   │   └── Car.java
+    │   │   │   └── Engine.java
+    │   │   │   └── HasARelationshipTest.java
+    │   │   ├── /Inheritance
+    │   │   │   └── Animal.java
+    │   │   │   └── Car.java
+    │   │   │   └── Circle.java
+    │   │   │   └── Dog.java
+    │   │   │   └── InheritanceTest.java
+    │   │   │   └── Mammal.java
+    │   │   │   └── Rectangle.java
+    │   │   │   └── Shape.java
+    │   │   │   └── Vehicle.java
+    │   │   ├── /instanceof
+    │   │   │   └── InstanceOfTest.java
+    │   │   │   └── Motorcycle.java
+    │   │   │   └── Vehicle.java
+    │   │   ├── /Interfaces_and_multiple_inheritance
     │   │   │   └── CanFly.java
+    │   │   │   └── CanSwim.java
     │   │   │   └── Duck.java
-    │   │   │   └── InterfacesTest.java
-    │   │   ├── /Typecasting
+    │   │   │   └── InterfaceTest.java
+    │   │   ├── /is_a_relationship
+    │   │   │   └── Bird.java
+    │   │   │   └── IsARelationshipTest.java
+    │   │   │   └── Sparrow.java
+    │   │   ├── /lab
+    │   │   │   └── Part1
+    │   │   │   └── Part2
+    │   │   ├── /object_class_and_methods
+    │   │   │   └── ObjectClassTest.java
+    │   │   │   └── Person.java
+    │   │   ├── /polymorphism
+    │   │   │   └── Designer.java
+    │   │   │   └── Developer.java
+    │   │   │   └── Employee.java
+    │   │   │   └── PolymorphismTest.java
+    │   │   ├── /type_casting
     │   │   │   └── Animal.java
     │   │   │   └── Cat.java
     │   │   │   └── TypeCastingTest.java
-    │   │   ├── /Lab
-    │   │   │   └── WorldTimeApiExample.java
-    │   ├── /Week7
+    │   ├── /week7
     │   │ ...
-    │   ├── /Week9
+    │   ├── /week9
     │   │ ...
-    │   ├── /Week10
+    │   ├── /week10
     │   │ ...
-    │   ├── /Week11
+    │   ├── /week11
     │   │ ...
-    │   ├── /Week12
+    │   ├── /week12
     │   │ ...
-    │   ├── /Week13
+    │   ├── /week13
     │   │ ...
-    │   ├── /Week14
+    │   ├── /week14
     │   │ ...
-    │   ├── /Week15
+    │   ├── /week15
     │   │ ...
     │   ├── /FinalProject
     │   │ ...
