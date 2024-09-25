@@ -5,4 +5,6 @@
 - Labs
 - Final Project
 
-##  [Fall 2024](Fall%202024/README.md)
+## Semesters
+
+###  [Fall 2024](Fall%202024/README.md)
