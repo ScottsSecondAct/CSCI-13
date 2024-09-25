@@ -1,4 +1,8 @@
 # CSCI-13 
-Class Material, Source Code, and Labs
+- PowerPoint Presentations
+- Class Assignments
+- Source Code
+- Labs
+- Final Project
 
 ##  [Fall 2024](Fall%202024/README.md)
