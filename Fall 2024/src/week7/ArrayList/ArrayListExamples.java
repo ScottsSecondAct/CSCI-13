@@ -51,7 +51,7 @@ public class ArrayListExamples {
     System.out.println("Is the ArrayList empty? " + isEmpty);
 
     // 11. indexOf(Object o) - Finding the index of an element
-    int indexOfOrange = fruits.indexOf("Orange");
+    int indexOfOrange = fruits.indexOf("kiwi");
     System.out.println("Index of Orange: " + indexOfOrange);
 
     // 12. lastIndexOf(Object o) - Finding the last index of an element
