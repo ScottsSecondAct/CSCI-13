@@ -3,11 +3,17 @@
  */
 package org.example;
 
+import java.util.Optional;
+
 public class App {
 
     public static void main(String[] args) {
         WeatherForecastApiClient client = new WeatherForecastApiClient();
-        String forecast = client.getWeatherForecast();
-        System.out.println(forecast);
+        Optional<String> forecast = client.getWeatherForecast();
+        if (forecast.isPresent()) {
+            System.out.println(forecast.get());
+        } else {
+            System.out.println("Failed to get the weather forecast.");
+        }
     }
 }
