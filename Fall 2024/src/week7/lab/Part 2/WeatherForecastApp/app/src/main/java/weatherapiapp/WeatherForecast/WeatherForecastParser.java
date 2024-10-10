@@ -1,4 +1,4 @@
-package weatherapiapp;
+package weatherapiapp.WeatherForecast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
