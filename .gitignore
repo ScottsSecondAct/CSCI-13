@@ -1,0 +1,95 @@
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Virtual machine crash logs, core dumps, and other crash reports
+hs_err_pid*
+
+# Maven and Gradle specific files
+*.iml
+.idea/
+target/
+build/
+
+# Gradle Wrapper files
+.gradle/
+!gradle-wrapper.jar
+
+# Eclipse project files
+.project
+.classpath
+.settings/
+bin/
+
+# IntelliJ IDEA files
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# VS Code settings
+.vscode/
+
+# MacOS files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Spring Boot specific files
+.env
+*.env
+*.jks
+*.p12
+
+# Lombok generated files
+lombok.config
+
+# Temporary files and backups
+*.tmp
+*.bak
+~$*
+# Java Service Wrapper log files
+hs_err_*.log
+
+# User-specific and system-specific files
+*.swp
+*~
+
+# Ignore generated test reports and logs
+test-output/
+surefire-reports/
+jacoco.exec
+
+# Ignore build artifacts
+build/
+!src/main/**/build/
+!src/test/**/build/
+!src/integration-test/**/build/
+!src/performance-test/**/build/
+
+# Temporary files created by JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+out/
+
+# Ignore Gradle debug logs
+.gradle/debug/
+.gradle/7.*/
