@@ -3,22 +3,12 @@
  */
 package weatherapiapp;
 
+import weatherapiapp.WeatherForecast.WeatherForecast;
+
 public class App {
 
     public static void main(String[] args) {
-        WeatherForecastApiClient client = new WeatherForecastApiClient();
-        
-        String forecast = client.getWeatherForecast();
-
-        WeatherForecastParser weatherForecastParser = new WeatherForecastParser();
-
-        WeatherForecast weatherForecast = weatherForecastParser.ToWeatherForecastObject(forecast);
-
-        WeatherForecast.Properties properties = weatherForecast.getProperties();
-
-        for (WeatherForecast.Period period : properties.getPeriods()) {
-            System.out.println(period.toString());
-            System.out.println();
-        }
+        WeatherForecast weatherForecast = WeatherForecast.getWeatherForecast();
+        weatherForecast.printWeatherForecastForWeek();
     }
 }
