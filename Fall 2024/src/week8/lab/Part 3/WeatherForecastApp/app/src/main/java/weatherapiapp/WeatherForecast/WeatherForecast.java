@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import weatherapiapp.GridPoint.GridPoint;
+
 public class WeatherForecast {
   @JsonProperty("@context")
   private List<Object> context;
@@ -11,16 +13,16 @@ public class WeatherForecast {
   private Geometry geometry;
   private Properties properties;
 
+  // Default constructor
+  public WeatherForecast() {
+  }
+
   // Parameterized constructor
   public WeatherForecast(List<Object> context, String type, Geometry geometry, Properties properties) {
     this.context = context;
     this.type = type;
     this.geometry = geometry;
     this.properties = properties;
-  }
-
-  // Default constructor
-  public WeatherForecast() {
   }
 
   // Getters and setters
@@ -56,16 +58,16 @@ public class WeatherForecast {
     this.properties = properties;
   }
 
-  public static WeatherForecast getWeatherForecast() {
+  public static Optional<WeatherForecast> getWeatherForecast(GridPoint gridPoint) {
     WeatherForecastApiClient client = new WeatherForecastApiClient();
-    Optional<String> forecast = client.getWeatherForecast();
+    Optional<String> forecast = client.getWeatherForecast(gridPoint);
 
     if (forecast.isPresent()) {
       WeatherForecastParser weatherForecastParser = new WeatherForecastParser();
-      return weatherForecastParser.ToWeatherForecastObject(forecast.get());
+      return Optional.of(weatherForecastParser.ToWeatherForecastObject(forecast.get()));
+    } else {
+      return Optional.empty();
     }
-
-    return null;
   }
 
   public void printWeatherForecastForWeek() {
