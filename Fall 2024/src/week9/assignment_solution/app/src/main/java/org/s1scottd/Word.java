@@ -1,3 +1,5 @@
+
+
 /**
  * MIT License
  *
@@ -21,48 +23,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package weatherapiapp.GridPoint;
 
-public class RelativeLocationProperties {
-  private String city;
-  private String state;
-  private Distance distance;
-  private Bearing bearing;
+package org.s1scottd;
 
-  // Default constructor
-  public RelativeLocationProperties() {
-  }
+public class Word implements Comparable<Word> {
+    private String word;
+    private int frequency;
 
-  // Getters and setters
-  public String getCity() {
-    return city;
-  }
+    public Word(String word, int frequency) {
+        this.word = word;
+        this.frequency = frequency;
+    }
 
-  public void setCity(String city) {
-    this.city = city;
-  }
+    public String getWord() {
+        return word;
+    }
 
-  public String getState() {
-    return state;
-  }
+    public int getFrequency() {
+        return frequency;
+    }
 
-  public void setState(String state) {
-    this.state = state;
-  }
+    @Override
+    public int compareTo(Word other) {
+        return Integer.compare(other.frequency, this.frequency); // Descending order
+    }
 
-  public Distance getDistance() {
-    return distance;
-  }
-
-  public void setDistance(Distance distance) {
-    this.distance = distance;
-  }
-
-  public Bearing getBearing() {
-    return bearing;
-  }
-
-  public void setBearing(Bearing bearing) {
-    this.bearing = bearing;
-  }
+    @Override
+    public String toString() {
+        return word + ": " + frequency;
+    }
 }

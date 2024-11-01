@@ -1,10 +1,12 @@
 public class SortingTest {
   public static void main(String[] args) {
-    int[] sampleArray = { 64, 25, 12, 22, 11 }; // You can change this to test different sizes
-    // int[] sampleArray = new int[256];
-    // for (int i = 0; i < 256; i++) {
-    //   sampleArray[i] = (int)(Math.random() * 1000);
-    // }
+    //int[] sampleArray = { 64, 25, 12, 22, 11 }; // You can change this to test different sizes
+    int n = (int) (Math.random() * 1000);
+    System.out.println("Testing with array of size " + n);
+    int[] sampleArray = new int[n];
+    for (int i = 0; i < n; i++) {
+      sampleArray[i] = (int)(Math.random() * 1000);
+    }
 
     // Create copies of the sampleArray for each sorting method
     int[] bubbleArray = sampleArray.clone();

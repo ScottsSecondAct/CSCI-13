@@ -21,48 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package weatherapiapp.GridPoint;
 
-public class RelativeLocationProperties {
-  private String city;
-  private String state;
-  private Distance distance;
-  private Bearing bearing;
+package org.s1scottd.LinkedList;
 
-  // Default constructor
-  public RelativeLocationProperties() {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+// Separate Iterator class for LinkedList
+class LinkedListIterator<T> implements Iterator<T> {
+  private Node<T> current;
+
+  public LinkedListIterator(Node<T> head) {
+    this.current = head;
   }
 
-  // Getters and setters
-  public String getCity() {
-    return city;
+  @Override
+  public boolean hasNext() {
+    return current != null;
   }
 
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-  public String getState() {
-    return state;
-  }
-
-  public void setState(String state) {
-    this.state = state;
-  }
-
-  public Distance getDistance() {
-    return distance;
-  }
-
-  public void setDistance(Distance distance) {
-    this.distance = distance;
-  }
-
-  public Bearing getBearing() {
-    return bearing;
-  }
-
-  public void setBearing(Bearing bearing) {
-    this.bearing = bearing;
+  @Override
+  public T next() {
+    if (!hasNext()) {
+      throw new NoSuchElementException();
+    }
+    T data = current.data;
+    current = current.next;
+    return data;
   }
 }
