@@ -1,3 +1,4 @@
+
 /**
  * MIT License
  *
@@ -21,48 +22,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package weatherapiapp.GridPoint;
 
-public class RelativeLocationProperties {
-  private String city;
-  private String state;
-  private Distance distance;
-  private Bearing bearing;
+package org.s1scottd;
 
-  // Default constructor
-  public RelativeLocationProperties() {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class TextParser {
+  private VocabularyManager manager;
+
+  public TextParser(VocabularyManager manager) {
+    this.manager = manager;
   }
 
-  // Getters and setters
-  public String getCity() {
-    return city;
-  }
-
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-  public String getState() {
-    return state;
-  }
-
-  public void setState(String state) {
-    this.state = state;
-  }
-
-  public Distance getDistance() {
-    return distance;
-  }
-
-  public void setDistance(Distance distance) {
-    this.distance = distance;
-  }
-
-  public Bearing getBearing() {
-    return bearing;
-  }
-
-  public void setBearing(Bearing bearing) {
-    this.bearing = bearing;
+  public void parseTextFile(String filePath) {
+    try {
+      Scanner scanner = new Scanner(new File(filePath));
+      while (scanner.hasNext()) {
+        String word = scanner.next().toLowerCase().replaceAll("[^a-zA-Z]", "");
+        if (!word.isEmpty()) {
+          manager.addWord(word);
+        }
+      }
+      scanner.close();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 }

@@ -1,3 +1,4 @@
+
 /**
  * MIT License
  *
@@ -21,48 +22,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package weatherapiapp.GridPoint;
 
-public class RelativeLocationProperties {
-  private String city;
-  private String state;
-  private Distance distance;
-  private Bearing bearing;
+package org.s1scottd;
 
-  // Default constructor
-  public RelativeLocationProperties() {
+import java.util.*;
+
+import org.s1scottd.LinkedList.LinkedList;
+
+public class VocabularyManager {
+  private LinkedList<Word> words;
+
+  public VocabularyManager() {
+    words = new LinkedList<>();
   }
 
-  // Getters and setters
-  public String getCity() {
-    return city;
+  public void addWord(String word) {
+    for (Word w : words) {
+      if (w.getWord().equals(word)) {
+        words.set(words.indexOf(w), new Word(word, w.getFrequency() + 1));
+        return;
+      }
+    }
+    words.add(new Word(word, 1));
   }
 
-  public void setCity(String city) {
-    this.city = city;
+  public void filterStopWords(List<String> stopWords) {
+    words.removeIf(word -> stopWords.contains(word.getWord()));
   }
 
-  public String getState() {
-    return state;
+  public void sortWordsByFrequency() {
+    words.sort();
   }
 
-  public void setState(String state) {
-    this.state = state;
+  public int getWordFrequency(String word) {
+    for (Word w : words) {
+      if (w.getWord().equals(word)) {
+        return w.getFrequency();
+      }
+    }
+    return 0;
   }
 
-  public Distance getDistance() {
-    return distance;
+  public LinkedList<Word> getTopNFrequentWords(int n) {
+    return words.subList(0, Math.min(n, words.size()));
   }
 
-  public void setDistance(Distance distance) {
-    this.distance = distance;
-  }
-
-  public Bearing getBearing() {
-    return bearing;
-  }
-
-  public void setBearing(Bearing bearing) {
-    this.bearing = bearing;
+  public void displayTopNFrequentWords(int n) {
+    LinkedList<Word> topWords = getTopNFrequentWords(n);
+    for (Word w : topWords) {
+      System.out.println(w);
+    }
   }
 }
