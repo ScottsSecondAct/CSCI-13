@@ -10,7 +10,7 @@ public class Fibonacci {
   }
 
   public static void main(String[] args) {
-    int n = 10; // Example: calculate the 10th Fibonacci number
+    int n = 20; // Example: calculate the 10th Fibonacci number
     long startTime = System.nanoTime();
     System.out.println("Fibonacci number " + n + " is: " + fibonacci(n));
     System.out.println("Total iterations: " + iterations);
