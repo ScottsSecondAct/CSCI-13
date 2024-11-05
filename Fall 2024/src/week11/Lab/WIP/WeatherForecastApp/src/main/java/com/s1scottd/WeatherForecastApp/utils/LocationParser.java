@@ -36,7 +36,6 @@ public class LocationParser {
 	}
 
 	public Location ToLocationObject(String jsonString) {
-
 		try {
 			// Convert JSON string to Java Object
 			return objectMapper.readValue(jsonString, Location.class);
@@ -47,7 +46,6 @@ public class LocationParser {
 	}
 
 	public String ToJsonString(Location location) {
-
 		try {
 			// Convert Java Object to JSON string
 			return objectMapper.writeValueAsString(location);
