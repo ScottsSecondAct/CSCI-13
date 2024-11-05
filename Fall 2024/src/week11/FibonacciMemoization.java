@@ -27,7 +27,10 @@ public class FibonacciMemoization {
 
   public static void main(String[] args) {
     int n = 10; // Example: calculate the 10th Fibonacci number
+    long startTime = System.nanoTime();
     System.out.println("Fibonacci number " + n + " is: " + fibonacci(n));
     System.out.println("Total iterations: " + iterations);
+    long endTime = System.nanoTime();
+    System.out.println(endTime - startTime);
   }
 }
