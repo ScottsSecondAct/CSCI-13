@@ -36,7 +36,7 @@ public class WeatherForecastController {
     return "Greetings from the Weather Forecast Web Application.";
   }
 
-  @GetMapping("/weather/{id}")
+  @GetMapping("/weatherforecast/{id}")
   public WeatherForecast getWeatherByLocationId(@PathVariable Long id) {
     // Logic to retrieve forecast by location ID
     return weatherForecastService.getWeatherForecastById(id);

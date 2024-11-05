@@ -30,14 +30,13 @@ import com.s1scottd.WeatherForecastApp.dtos.GridPoint.GridPoint;
 import com.s1scottd.WeatherForecastApp.dtos.Location.Location;
 
 public class GridPointParser {
-  	private ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
 	public GridPointParser() {
 		objectMapper = new ObjectMapper();
 	}
 
 	public GridPoint ToGridPointObject(String jsonString) {
-
 		try {
 			// Convert JSON string to Java Object
 			return objectMapper.readValue(jsonString, GridPoint.class);
@@ -48,7 +47,6 @@ public class GridPointParser {
 	}
 
 	public String ToJsonString(GridPoint gridPoint) {
-
 		try {
 			// Convert Java Object to JSON string
 			return objectMapper.writeValueAsString(gridPoint);
