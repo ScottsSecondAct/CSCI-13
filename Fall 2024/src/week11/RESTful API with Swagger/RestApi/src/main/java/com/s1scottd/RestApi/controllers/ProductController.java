@@ -7,12 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.s1scottd.RestApi.model.Product;
-
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import com.s1scottd.RestApi.model.Product;
 
 @RestController
 @RequestMapping("/api/products")
@@ -32,7 +33,7 @@ public class ProductController {
       @ApiResponse(responseCode = "404", description = "Not found - The product was not found")
   })
   @GetMapping("/{id}")
-  public ResponseEntity<Product> getProductById(@PathVariable int id) {
+  public ResponseEntity<Product> getProductById(@PathVariable("id") @Parameter(name = "id", description = "Product id", example = "1") int id) {
     Product product = findProductById(id);
     if (product != null) {
       return ResponseEntity.ok(product);
