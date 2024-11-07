@@ -1,8 +1,12 @@
-package com.s1scottd.WeatherForecastApp.models;
+package com.s1scottd.WeatherForecastApp.dtos;
 
-public class StreetAddress {
+// import jakarta.persistence.Entity;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
+// import jakarta.persistence.Id;
+
+public class StreetAddressReadDto {
   // Fields
-  private Long id;
   private String number; // Street number
   private String street;
   private String city;
@@ -11,30 +15,9 @@ public class StreetAddress {
   private String country;
 
   // Default constructor
-  public StreetAddress() {
+  public StreetAddressReadDto() {
   }
-
-  // Parameterized constructor
-  public StreetAddress(Long id, String number, String street, String city, String state, String zipCode,
-      String country) {
-    this.id = id;
-    this.number = number;
-    this.street = street;
-    this.city = city;
-    this.state = state;
-    this.zipCode = zipCode;
-    this.country = country;
-  }
-
-  // Getters and Setters
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
+  
   public String getNumber() {
     return number;
   }
@@ -82,10 +65,5 @@ public class StreetAddress {
   public void setCountry(String country) {
     this.country = country;
   }
-
-  // toString method
-  @Override
-  public String toString() {
-    return number + " " + street + ", " + city + ", " + state + " " + zipCode + ", " + country;
-  }
 }
+

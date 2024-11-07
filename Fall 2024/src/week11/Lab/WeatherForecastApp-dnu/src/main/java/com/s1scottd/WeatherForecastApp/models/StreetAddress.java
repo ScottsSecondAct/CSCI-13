@@ -1,18 +1,7 @@
 package com.s1scottd.WeatherForecastApp.models;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-@Entity
 public class StreetAddress {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
   // Fields
+  private Long id;
   private String number; // Street number
   private String street;
   private String city;
@@ -20,25 +9,19 @@ public class StreetAddress {
   private String zipCode;
   private String country;
 
-  private String gridId;
-  private int gridX;
-  private int gridY;
-
   // Default constructor
   public StreetAddress() {
   }
 
   // Parameterized constructor
-  public StreetAddress(String number, String street, String city, String state, String zipCode, String country) {
+  public StreetAddress(Long id, String number, String street, String city, String state, String zipCode, String country) {
+    this.id = id;
     this.number = number;
     this.street = street;
     this.city = city;
     this.state = state;
     this.zipCode = zipCode;
     this.country = country;
-    this.gridId = null;
-    this.gridX = null;
-    this.gridY = null;
   }
 
   // Getters and Setters
@@ -49,7 +32,7 @@ public class StreetAddress {
   public void setId(Long id) {
     this.id = id;
   }
-  
+
   public String getNumber() {
     return number;
   }
@@ -98,33 +81,9 @@ public class StreetAddress {
     this.country = country;
   }
 
-  public String getGridId() {
-    return gridId;
-  }
-
-  public void setGridId(String gridId) {
-    this.gridId = gridId;
-  }
-
-    public String getGridX() {
-    return gridX;
-  }
-
-  public void setGridX(String gridX) {
-    this.gridX = gridX;
-  }
-
-    public String getGridY() {
-    return gridY;
-  }
-
-  public void setGridY(String gridId) {
-    this.gridY = gridY;
-  }
-
   // toString method
   @Override
   public String toString() {
-    return number + " " + street + ", " + city + ", " + state + " " + zipCode + ", " + country + "," + gridId + ", " + gridX + ", " + gridY;
+    return number + " " + street + ", " + city + ", " + state + " " + zipCode + ", " + country;
   }
 }

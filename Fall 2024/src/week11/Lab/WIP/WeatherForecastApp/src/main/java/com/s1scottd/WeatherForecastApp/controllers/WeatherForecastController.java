@@ -10,13 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+import com.s1scottd.WeatherForecastApp.dtos.StreetAddressReadDto;
 import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.*;
 import com.s1scottd.WeatherForecastApp.services.WeatherForecastService;
 import com.s1scottd.WeatherForecastApp.services.StreetAddressService;
 import com.s1scottd.WeatherForecastApp.utils.StreetAddressParser;
 
 @RestController
-@RequestMapping("/api/weather")
+@RequestMapping("/api/")
 public class WeatherForecastController {
 
   @Autowired
@@ -24,7 +25,6 @@ public class WeatherForecastController {
 
   @Autowired
   private final StreetAddressService streetAddressService;
-
 
   public WeatherForecastController(WeatherForecastService weatherForecastService, StreetAddressService streetAddressService) {
     this.weatherForecastService = weatherForecastService;
@@ -42,7 +42,7 @@ public class WeatherForecastController {
     return weatherForecastService.getWeatherForecastById(id);
   }
 
-  @GetMapping("/address/{id}")
+  @GetMapping("/street-address/{id}")
   public Optional<StreetAddress> getStreetAddressById(@PathVariable Long id) {
     // Logic to retrieve forecast by address ID
     Optional<StreetAddress> streetAddress = streetAddressService.getStreetAddressById(id);
@@ -53,19 +53,21 @@ public class WeatherForecastController {
     }
   }
 
-  @GetMapping("/addresses")
+  @GetMapping("/street-addresses")
   public List<StreetAddress> getAllStreetAddresses() {
     return streetAddressService.getStreetAddresses();
   }
 
-  @PostMapping
-  public ResponseEntity<HashMap<StreetAddress, Long>> setStreetAddress(@RequestBody String addressString) {
-    StreetAddress streetAddress = streetAddressService.saveStreetAddress(addressString);
+  @PostMapping("/street-address")
+  public ResponseEntity<HashMap<StreetAddress, Long>> setStreetAddress(@RequestBody StreetAddressReadDto streetAddressReadDto) {
+
+    StreetAddress streetAddress = streetAddressService.saveStreetAddress(streetAddressReadDto);
+
     if (streetAddress != null) {
-      HashMap<StreetAddress, Long> map = new HashMap<StreetAddress, Long>();
+      HashMap<StreetAddress, Long> map = new HashMap<>();
       map.put(streetAddress, streetAddress.getId());
-      return new ResponseEntity<HashMap<StreetAddress, Long>>(map, HttpStatus.CREATED);
+      return new ResponseEntity<>(map, HttpStatus.CREATED);
     }
-    return new ResponseEntity<HashMap<StreetAddress, Long>>(new HashMap<StreetAddress,Long>(), HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(new HashMap<>(), HttpStatus.BAD_REQUEST);
   }
 }
