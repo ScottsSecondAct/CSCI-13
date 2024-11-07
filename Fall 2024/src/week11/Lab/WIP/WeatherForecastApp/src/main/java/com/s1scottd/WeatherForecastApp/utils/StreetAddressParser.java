@@ -45,4 +45,15 @@ public class StreetAddressParser {
 			return null;
 		}
 	}
+
+  public StreetAddress ToStreetAddressObject(StreetAddressDto streetAddressDto) {
+    StreetAddress streetAddress = new StreetAddress();
+    streetAddress.setNumber(streetAddressDto.getNumber());
+    streetAddress.setStreet(streetAddressDto.getStreet());
+    streetAddress.setCity(streetAddressDto.getCity());
+    streetAddress.setState(streetAddressDto.getState());
+    streetAddress.setZipCode(streetAddressDto.getZipCode());
+    streetAddress.setCountry(streetAddressDto.getCountry());
+    return streetAddress;
+  }
 }

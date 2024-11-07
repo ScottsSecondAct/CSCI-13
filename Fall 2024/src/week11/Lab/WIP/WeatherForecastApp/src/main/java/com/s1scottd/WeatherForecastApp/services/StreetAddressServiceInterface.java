@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+import com.s1scottd.WeatherForecastApp.dtos.StreetAddressDto;
 
 public interface StreetAddressServiceInterface {
 
-  public StreetAddress saveStreetAddress(String jsonString);
+  public StreetAddress saveStreetAddress(StreetAddressDto streetAddressDto);
 
   public Optional<StreetAddress> getStreetAddressById(Long id);
 
