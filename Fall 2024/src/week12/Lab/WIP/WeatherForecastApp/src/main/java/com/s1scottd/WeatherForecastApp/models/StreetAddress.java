@@ -124,8 +124,8 @@ public class StreetAddress {
 
   //For Exammple, 5200+Sierra+College+Blvd%2C+Rocklin%2C+CA+95677
   public String formatAddress() {
-    String formattedStreet = street.replaceAll("\\s+", "+");
-    return number + "+" + formattedStreet + "%2C" + "+" + city + "%2C" + "+" + state + "+" + zipCode;
+    String address = number + "+" + street + "%2C" + "+" + city + "%2C" + "+" + state + "+" + zipCode;
+    return address.replaceAll("\\s+", "+");
   }
 
   // toString method

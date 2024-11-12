@@ -49,4 +49,11 @@ public class StreetAddressTests {
     String expected = "789+Elm+Street%2C+Othertown%2C+TX+67890";
     assertEquals(expected, address.formatAddress());
   }
+
+  @Test
+  public void testFormatAddressWithSpacesInStreetAndCity() {
+    StreetAddress address = new StreetAddress("789", "Elm Street", "Fort Worth", "TX", "67890", "USA");
+    String expected = "789+Elm+Street%2C+Fort+Worth%2C+TX+67890";
+    assertEquals(expected, address.formatAddress());
+  }
 }
