@@ -49,11 +49,10 @@ public class LocationApiClient {
     // Example: 4600+Silver+Hill+Rd%2C+Washington%2C+DC+20233
     
     // https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=4600+Silver+Hill+Rd%2C+Washington%2C+DC+20233&benchmark=4&format=json
-    String oneLineAddress = "onelineaddress?address=" + streetAddress.getNumber() + "+" + streetAddress.getStreet() +
-        "%2C+" + streetAddress.getCity() + "%2C+" + streetAddress.getState() + "+" + streetAddress.getZipCode() +
-        "&benchmark=4&format=json";
+    // https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=13254+Peardale+Rd%2C+Grass Valley%2C+CA+95945&benchmark=4&format=json
+    String oneLineAddress = "onelineaddress?address=" + streetAddress.formatAddress() + "&benchmark=4&format=json";
 
-            LOGGER.log(Level.INFO, "oneLineAddress: " + oneLineAddress);
+    LOGGER.log(Level.INFO, "oneLineAddress: " + oneLineAddress);
 
     // Encode the address to be HTTP compatible
     // try {
