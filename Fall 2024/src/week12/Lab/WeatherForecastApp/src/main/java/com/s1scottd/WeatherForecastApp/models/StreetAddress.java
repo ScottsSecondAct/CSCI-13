@@ -4,8 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import com.s1scottd.WeatherForecastApp.dtos.GridPoint.GridPoint;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class StreetAddress {
@@ -15,17 +14,15 @@ public class StreetAddress {
   private Long id;
 
   // Fields
-  private String number; // Street number
+  private String number;
   private String street;
   private String city;
   private String state;
   private String zipCode;
   private String country;
 
-  private String gridId;
-  private int gridX;
-  private int gridY;
-  private GridPoint gridPoint;
+  @OneToOne
+  private GridLocation gridLocation;
 
   // Default constructor
   public StreetAddress() {
@@ -39,9 +36,6 @@ public class StreetAddress {
     this.state = state;
     this.zipCode = zipCode;
     this.country = country;
-    this.gridId = null;
-    this.gridX = -1;
-    this.gridY = -1;
   }
 
   // Getters and Setters
@@ -101,39 +95,15 @@ public class StreetAddress {
     this.country = country;
   }
 
-  public String getGridId() {
-    return gridId;
+  public GridLocation getGridLocation() {
+    return gridLocation;
   }
 
-  public void setGridId(String gridId) {
-    this.gridId = gridId;
+  public void setGridLocation(GridLocation gridLocation) {
+    this.gridLocation = gridLocation;
   }
 
-    public int getGridX() {
-    return gridX;
-  }
-
-  public void setGridX(int gridX) {
-    this.gridX = gridX;
-  }
-
-    public int getGridY() {
-    return gridY;
-  }
-
-  public void setGridY(int gridY) {
-    this.gridY = gridY;
-  }
-
-  public GridPoint getGridPoint() {
-    return gridPoint;
-  }
-
-  public void setGridPoint(GridPoint gridPoint) {
-    this.gridPoint = gridPoint;
-  }
-
-  //For Exammple, 5200+Sierra+College+Blvd%2C+Rocklin%2C+CA+95677
+  // For Example, 5200+Sierra+College+Blvd%2C+Rocklin%2C+CA+95677
   public String formatAddress() {
     String address = number + "+" + street + "%2C" + "+" + city + "%2C" + "+" + state + "+" + zipCode;
     return address.replaceAll("\\s+", "+");
@@ -142,6 +112,6 @@ public class StreetAddress {
   // toString method
   @Override
   public String toString() {
-    return number + " " + street + ", " + city + ", " + state + " " + zipCode + ", " + country + "," + gridId + ", " + gridX + ", " + gridY;
+    return number + " " + street + ", " + city + ", " + state + " " + zipCode + ", " + country;
   }
 }

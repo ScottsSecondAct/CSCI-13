@@ -2,18 +2,18 @@ package com.s1scottd.WeatherForecastApp.services;
 
 import java.util.List;
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponseDto;
+import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
 
 public interface IStreetAddressService {
 
-  StreetAddressResponseDto saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
+  StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
 
-  StreetAddressResponseDto getStreetAddressResponseDtoById(Long id);
+  StreetAddressResponse getStreetAddressResponseById(Long id);
 
   StreetAddress getStreetAddressById(Long id);
 
-  List<StreetAddressResponseDto> getStreetAddresses();
+  List<StreetAddressResponse> getStreetAddresses();
 
   void deleteStreetAddress(Long id);
 

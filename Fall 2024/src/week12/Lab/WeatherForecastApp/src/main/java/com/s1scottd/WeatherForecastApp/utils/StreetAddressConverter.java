@@ -1,7 +1,7 @@
 package com.s1scottd.WeatherForecastApp.utils;
 
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponseDto;
+import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
 
 public class StreetAddressConverter {
@@ -17,8 +17,8 @@ public class StreetAddressConverter {
     return streetAddress;
   }
 
-  public static StreetAddressResponseDto streetAddress2StreetAddressResponseDto(StreetAddress streetAddress) {
-    StreetAddressResponseDto streetAddressResponseDto = new StreetAddressResponseDto();
+  public static StreetAddressResponse streetAddress2StreetAddressResponse(StreetAddress streetAddress) {
+    StreetAddressResponse streetAddressResponseDto = new StreetAddressResponse();
     streetAddressResponseDto.setId(streetAddress.getId());
     streetAddressResponseDto.setNumber(streetAddress.getNumber());
     streetAddressResponseDto.setStreet(streetAddress.getStreet());
