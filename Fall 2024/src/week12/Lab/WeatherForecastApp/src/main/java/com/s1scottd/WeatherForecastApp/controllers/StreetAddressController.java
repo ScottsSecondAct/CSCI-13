@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponseDto;
+import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
 import com.s1scottd.WeatherForecastApp.services.IStreetAddressService;
 import com.s1scottd.WeatherForecastApp.services.StreetAddressService;
 import java.util.logging.Level;
@@ -26,28 +26,27 @@ public class StreetAddressController {
   }
 
   @GetMapping("/")
-  public ResponseEntity<List<StreetAddressResponseDto>> getAllStreetAddresses() {
+  public ResponseEntity<List<StreetAddressResponse>> getAllStreetAddresses() {
     return new ResponseEntity<>(streetAddressService.getStreetAddresses(), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<StreetAddressResponseDto> getStreetAddressById(@PathVariable Long id) {
-    StreetAddressResponseDto streetAddressResponseDto = streetAddressService.getStreetAddressResponseById(id);
-    if (streetAddressResponseDto != null) {
-      return new ResponseEntity<>(streetAddressResponseDto, HttpStatus.CREATED);
+  public ResponseEntity<StreetAddressResponse> getStreetAddressById(@PathVariable Long id) {
+    StreetAddressResponse streetAddressResponse = streetAddressService.getStreetAddressResponseById(id);
+    if (streetAddressResponse != null) {
+      return new ResponseEntity<>(streetAddressResponse, HttpStatus.CREATED);
     } else {
-      return new ResponseEntity<>(new StreetAddressResponseDto(), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(new StreetAddressResponse(), HttpStatus.BAD_REQUEST);
     }
   }
 
   @PostMapping("/")
-  public ResponseEntity<StreetAddressResponseDto> setStreetAddress(@RequestBody StreetAddressCreateRequest streetAddressCreateRequest) {
-    LOGGER.log(Level.INFO, "streetAddressCreateRequest: " + streetAddressCreateRequest.toString());
-    StreetAddressResponseDto streetAddressResponseDto = streetAddressService.saveStreetAddress(streetAddressCreateRequest);
+  public ResponseEntity<StreetAddressResponse> setStreetAddress(@RequestBody StreetAddressCreateRequest streetAddressCreateRequest) {
+    StreetAddressResponse streetAddressResponseDto = streetAddressService.saveStreetAddress(streetAddressCreateRequest);
 
     if (streetAddressResponseDto != null) {
       return new ResponseEntity<>(streetAddressResponseDto, HttpStatus.CREATED);
     }
-    return new ResponseEntity<>(new StreetAddressResponseDto(), HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(new StreetAddressResponse(), HttpStatus.BAD_REQUEST);
   }
 }
