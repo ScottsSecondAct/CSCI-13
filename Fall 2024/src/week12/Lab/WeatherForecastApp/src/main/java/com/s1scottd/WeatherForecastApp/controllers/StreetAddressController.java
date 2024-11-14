@@ -1,22 +1,25 @@
 package com.s1scottd.WeatherForecastApp.controllers;
 
+import java.net.URI;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import jakarta.validation.Valid;
 
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
+import com.s1scottd.WeatherForecastApp.exception.DuplicateResourceException;
+import com.s1scottd.WeatherForecastApp.exception.ResourceNotFoundException;
 import com.s1scottd.WeatherForecastApp.services.IStreetAddressService;
 import com.s1scottd.WeatherForecastApp.services.StreetAddressService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/street-address")
 public class StreetAddressController {
-  private static final Logger LOGGER = Logger.getLogger(StreetAddressController.class.getName());
 
   @Autowired
   private final IStreetAddressService streetAddressService;
@@ -27,26 +30,33 @@ public class StreetAddressController {
 
   @GetMapping("/")
   public ResponseEntity<List<StreetAddressResponse>> getAllStreetAddresses() {
-    return new ResponseEntity<>(streetAddressService.getStreetAddresses(), HttpStatus.OK);
+    return ResponseEntity.ok(streetAddressService.getStreetAddresses());
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<StreetAddressResponse> getStreetAddressById(@PathVariable Long id) {
-    StreetAddressResponse streetAddressResponse = streetAddressService.getStreetAddressResponseById(id);
-    if (streetAddressResponse != null) {
-      return new ResponseEntity<>(streetAddressResponse, HttpStatus.CREATED);
-    } else {
-      return new ResponseEntity<>(new StreetAddressResponse(), HttpStatus.BAD_REQUEST);
-    }
+    StreetAddressResponse streetAddressResponse = streetAddressService.getStreetAddressResponseById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Street Address not found for id: " + id));
+
+    return ResponseEntity.ok(streetAddressResponse);
   }
 
   @PostMapping("/")
-  public ResponseEntity<StreetAddressResponse> setStreetAddress(@RequestBody StreetAddressCreateRequest streetAddressCreateRequest) {
-    StreetAddressResponse streetAddressResponseDto = streetAddressService.saveStreetAddress(streetAddressCreateRequest);
+  public ResponseEntity<StreetAddressResponse> setStreetAddress(
+      @Valid @RequestBody StreetAddressCreateRequest streetAddressCreateRequest) {
 
-    if (streetAddressResponseDto != null) {
-      return new ResponseEntity<>(streetAddressResponseDto, HttpStatus.CREATED);
+    if (streetAddressService.streetAddressExists(streetAddressCreateRequest)) {
+      throw new DuplicateResourceException("User already exists");
     }
-    return new ResponseEntity<>(new StreetAddressResponse(), HttpStatus.BAD_REQUEST);
+
+    StreetAddressResponse streetAddressResponse = streetAddressService.saveStreetAddress(streetAddressCreateRequest);
+
+    URI location = ServletUriComponentsBuilder
+        .fromCurrentRequest()
+        .path("/{id}")
+        .buildAndExpand(streetAddressResponse.getId())
+        .toUri();
+
+    return ResponseEntity.created(location).body(streetAddressResponse);
   }
 }

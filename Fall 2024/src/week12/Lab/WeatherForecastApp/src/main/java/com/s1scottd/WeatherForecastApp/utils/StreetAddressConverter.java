@@ -12,7 +12,6 @@ public class StreetAddressConverter {
     streetAddress.setCity(streetAddressCreateRequest.getCity());
     streetAddress.setState(streetAddressCreateRequest.getState());
     streetAddress.setZipCode(streetAddressCreateRequest.getZipCode());
-    streetAddress.setCountry(streetAddressCreateRequest.getCountry());
 
     return streetAddress;
   }
@@ -25,7 +24,6 @@ public class StreetAddressConverter {
     streetAddressResponseDto.setCity(streetAddress.getCity());
     streetAddressResponseDto.setState(streetAddress.getState());
     streetAddressResponseDto.setZipCode(streetAddress.getZipCode());
-    streetAddressResponseDto.setCountry(streetAddress.getCountry());
 
     return streetAddressResponseDto;
   }

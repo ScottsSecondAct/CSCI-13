@@ -19,7 +19,6 @@ public class StreetAddress {
   private String city;
   private String state;
   private String zipCode;
-  private String country;
 
   @OneToOne
   private GridLocation gridLocation;
@@ -29,13 +28,12 @@ public class StreetAddress {
   }
 
   // Parameterized constructor
-  public StreetAddress(String number, String street, String city, String state, String zipCode, String country) {
+  public StreetAddress(String number, String street, String city, String state, String zipCode) {
     this.number = number;
     this.street = street;
     this.city = city;
     this.state = state;
     this.zipCode = zipCode;
-    this.country = country;
   }
 
   // Getters and Setters
@@ -87,14 +85,6 @@ public class StreetAddress {
     this.zipCode = zipCode;
   }
 
-  public String getCountry() {
-    return country;
-  }
-
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
   public GridLocation getGridLocation() {
     return gridLocation;
   }
@@ -112,6 +102,6 @@ public class StreetAddress {
   // toString method
   @Override
   public String toString() {
-    return number + " " + street + ", " + city + ", " + state + " " + zipCode + ", " + country;
+    return number + " " + street + ", " + city + ", " + state + " " + zipCode;
   }
 }

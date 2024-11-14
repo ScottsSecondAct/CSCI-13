@@ -34,10 +34,6 @@ import java.time.Duration;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-
-
 
 import com.s1scottd.WeatherForecastApp.dtos.Location.Location;
 import com.s1scottd.WeatherForecastApp.utils.LocationUtils;

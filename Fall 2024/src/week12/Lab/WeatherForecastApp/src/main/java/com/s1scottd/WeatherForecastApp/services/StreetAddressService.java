@@ -11,6 +11,7 @@ import com.s1scottd.WeatherForecastApp.models.GridLocation;
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
 import com.s1scottd.WeatherForecastApp.clients.GridPointApiClient;
 import com.s1scottd.WeatherForecastApp.clients.LocationApiClient;
+import com.s1scottd.WeatherForecastApp.clients.WeatherForecastApiClient;
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
 import com.s1scottd.WeatherForecastApp.dtos.GridPoint.GridPoint;
@@ -20,10 +21,14 @@ import com.s1scottd.WeatherForecastApp.utils.GridPointParser;
 import com.s1scottd.WeatherForecastApp.utils.LocationParser;
 import com.s1scottd.WeatherForecastApp.utils.StreetAddressConverter;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Service
 public class StreetAddressService implements IStreetAddressService {
 
   private final StreetAddressRepository streetAddressRepository;
+  private static final Logger LOGGER = Logger.getLogger(StreetAddressService.class.getName());
 
   @Autowired
   public StreetAddressService(StreetAddressRepository streetAddressRepository) {
@@ -33,27 +38,30 @@ public class StreetAddressService implements IStreetAddressService {
   @Override
   public StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest) {
     // Convert a StreetAddressCreateRequest object to a StreetAddress object
-    StreetAddress streetAddress = StreetAddressConverter.streetAddressCreateRequest2StreetAddress(streetAddressCreateRequest);
+    StreetAddress streetAddress = StreetAddressConverter
+        .streetAddressCreateRequest2StreetAddress(streetAddressCreateRequest);
 
     // Get the GridPoint object for the street address
-    Optional<GridPoint> gridPoint = getGridPoint(streetAddress);
+    Optional<GridPoint> gridPoint = getGridPointFromStreetAddress(streetAddress);
     if (gridPoint.isEmpty()) {
+      LOGGER.log(Level.WARNING, "Failed to get grid point");
       return null;
     }
 
     // Convert the GridPoint object to GridLocation object
     GridLocation gridLocation = new GridPointParser().getGridLocation(gridPoint.get());
+    LOGGER.log(Level.INFO, "GridLocation: {0}", gridLocation);
 
     // Store the GridPoint object in the Street Address object
     streetAddress.setGridLocation(gridLocation);
     StreetAddress savedStreetAddress = streetAddressRepository.save(streetAddress);
+    LOGGER.log(Level.INFO, "Saved Street Address: {0}", savedStreetAddress);
 
     return StreetAddressConverter.streetAddress2StreetAddressResponse(savedStreetAddress);
   }
 
-
   // Get a grid point for a street address
-  Optional<GridPoint> getGridPoint(StreetAddress streetAddress) {
+  Optional<GridPoint> getGridPointFromStreetAddress(StreetAddress streetAddress) {
     // Convert the street address to a location
     LocationApiClient locationApiClient = new LocationApiClient();
     Optional<String> locationString = locationApiClient.getLocation(streetAddress);
@@ -82,23 +90,18 @@ public class StreetAddressService implements IStreetAddressService {
   }
 
   @Override
-  public StreetAddress getStreetAddressById(Long id) {
-    Optional<StreetAddress> streetAddress = streetAddressRepository.findById(id);
-
-    if (streetAddress.isPresent()) {
-      return streetAddress.get();
-    }
-    return null;
+  public Optional<StreetAddress> getStreetAddressById(Long id) {
+    return streetAddressRepository.findById(id);
   }
 
-    @Override
-  public StreetAddressResponse getStreetAddressResponseById(Long id) {
+  @Override
+  public Optional<StreetAddressResponse> getStreetAddressResponseById(Long id) {
     Optional<StreetAddress> streetAddress = streetAddressRepository.findById(id);
 
     if (streetAddress.isPresent()) {
-      return StreetAddressConverter.streetAddress2StreetAddressResponse(streetAddress.get());
+      return Optional.ofNullable(StreetAddressConverter.streetAddress2StreetAddressResponse(streetAddress.get()));
     }
-    return null;
+    return Optional.empty();
   }
 
   @Override
@@ -122,5 +125,16 @@ public class StreetAddressService implements IStreetAddressService {
   @Override
   public long countStreetAddresses() {
     return streetAddressRepository.count();
+  }
+
+  @Override
+  public boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest) {
+    StreetAddress streetAddress = StreetAddressConverter
+        .streetAddressCreateRequest2StreetAddress(streetAddressCreateRequest);
+    StreetAddress duplicateStreetAddress = streetAddressRepository.findByNumberAndStreetAndCityAndStateAndZipCode(
+        streetAddress.getNumber(),
+        streetAddress.getStreet(), streetAddress.getCity(), streetAddress.getState(), streetAddress.getZipCode());
+
+    return duplicateStreetAddress != null;
   }
 }
