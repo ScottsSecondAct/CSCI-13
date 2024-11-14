@@ -41,8 +41,9 @@ public class WeatherForecastApiClient {
   private static final Logger LOGGER = Logger.getLogger(WeatherForecastApiClient.class.getName());
   private static final String BASE_URL = "https://api.weather.gov/gridpoints/";
 
+  // https://api.weather.gov/gridpoints/STO/53,76/forecast
   public Optional<String> getWeatherForecast(GridLocation gridLocation) {
-    String apiUri = String.format("%s%s/%d,%d/forecast", BASE_URL,
+    String apiUri = String.format("%s/%d,%d/forecast", BASE_URL,
         gridLocation.getGridId(),
         gridLocation.getGridX(),
         gridLocation.getGridY());

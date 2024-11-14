@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StreetAddressRepository extends JpaRepository<StreetAddress, Long> {
+
+  StreetAddress findByNumberAndStreetAndCityAndStateAndZipCode(String number, String street, String city, String state, String zipCode); 
 }

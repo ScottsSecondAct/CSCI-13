@@ -33,7 +33,6 @@ public class StreetAddressResponse {
   private String city;
   private String state;
   private String zipCode;
-  private String country;
 
   // Getters and setters
   public StreetAddressResponse() {
@@ -88,18 +87,10 @@ public class StreetAddressResponse {
     this.zipCode = zipCode;
   }
 
-  public String getCountry() {
-    return country;
-  }
-
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
   // toString method
   @Override
   public String toString() {
     return id + " " + number + " " + street + ", " + city + ", " +
-      state + " " + zipCode + ", " + country;
+      state + " " + zipCode;
   }
 }
