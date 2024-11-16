@@ -15,18 +15,13 @@ import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
 import com.s1scottd.WeatherForecastApp.exception.DuplicateResourceException;
 import com.s1scottd.WeatherForecastApp.exception.ResourceNotFoundException;
 import com.s1scottd.WeatherForecastApp.services.IStreetAddressService;
-import com.s1scottd.WeatherForecastApp.services.StreetAddressService;
 
 @RestController
 @RequestMapping("/api/street-address")
 public class StreetAddressController {
 
   @Autowired
-  private final IStreetAddressService streetAddressService;
-
-  public StreetAddressController(StreetAddressService streetAddressService) {
-    this.streetAddressService = streetAddressService;
-  }
+  private IStreetAddressService streetAddressService;
 
   @GetMapping("/")
   public ResponseEntity<List<StreetAddressResponse>> getAllStreetAddresses() {
