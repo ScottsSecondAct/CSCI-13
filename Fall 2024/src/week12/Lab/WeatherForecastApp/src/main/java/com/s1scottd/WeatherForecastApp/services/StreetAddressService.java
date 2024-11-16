@@ -11,7 +11,6 @@ import com.s1scottd.WeatherForecastApp.models.GridLocation;
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
 import com.s1scottd.WeatherForecastApp.clients.GridPointApiClient;
 import com.s1scottd.WeatherForecastApp.clients.LocationApiClient;
-import com.s1scottd.WeatherForecastApp.clients.WeatherForecastApiClient;
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
 import com.s1scottd.WeatherForecastApp.dtos.GridPoint.GridPoint;
@@ -26,14 +25,15 @@ import java.util.logging.Logger;
 
 @Service
 public class StreetAddressService implements IStreetAddressService {
-
-  private final StreetAddressRepository streetAddressRepository;
+  
+  @Autowired
+  private StreetAddressRepository streetAddressRepository;
+  
   private static final Logger LOGGER = Logger.getLogger(StreetAddressService.class.getName());
 
-  @Autowired
-  public StreetAddressService(StreetAddressRepository streetAddressRepository) {
-    this.streetAddressRepository = streetAddressRepository;
-  }
+  // public StreetAddressService(StreetAddressRepository streetAddressRepository) {
+  //   this.streetAddressRepository = streetAddressRepository;
+  // }
 
   @Override
   public StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest) {

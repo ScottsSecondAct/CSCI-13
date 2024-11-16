@@ -19,9 +19,9 @@ public class GridLocation {
   public GridLocation() {
   }
 
-  public GridLocation(String gridId, int girdX, int gridY) {
+  public GridLocation(String gridId, int gridX, int gridY) {
     this.gridId = gridId;
-    this.gridX = girdX;
+    this.gridX = gridX;
     this.gridY = gridY;
   }
 

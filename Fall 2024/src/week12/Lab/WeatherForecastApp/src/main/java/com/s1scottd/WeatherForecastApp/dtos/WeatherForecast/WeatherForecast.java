@@ -79,30 +79,4 @@ public class WeatherForecast {
   public void setProperties(Properties properties) {
     this.properties = properties;
   }
-
-  // public static Optional<WeatherForecast> getWeatherForecast(GridPoint
-  // gridPoint) {
-  // WeatherForecastApiClient client = new WeatherForecastApiClient();
-  // Optional<String> forecast = client.getWeatherForecast(gridPoint);
-
-  // if (forecast.isPresent()) {
-  // WeatherForecastParser weatherForecastParser = new WeatherForecastParser();
-  // return
-  // Optional.of(weatherForecastParser.ToWeatherForecastObject(forecast.get()));
-  // } else {
-  // return Optional.empty();
-  // }
-  // }
-
-  // public void printWeatherForecastForWeek() {
-  // Properties properties = getProperties();
-
-  // StringBuilder sb = new StringBuilder();
-
-  // for (Period period : properties.getPeriods()) {
-  // sb.append(period.toString()).append("\n");
-  // sb.append("\n");
-  // }
-  // System.out.println(sb.toString());
-  // }
 }

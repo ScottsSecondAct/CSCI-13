@@ -1,9 +1,11 @@
 package com.s1scottd.WeatherForecastApp.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -20,7 +22,8 @@ public class StreetAddress {
   private String state;
   private String zipCode;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "grid_location_id", nullable = false) // Optional: Customize the join column name
   private GridLocation gridLocation;
 
   // Default constructor

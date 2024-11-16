@@ -1,22 +1,20 @@
 package com.s1scottd.WeatherForecastApp.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.*;
+import com.s1scottd.WeatherForecastApp.exception.ResourceNotFoundException;
 import com.s1scottd.WeatherForecastApp.services.IWeatherForecastService;
-//import com.s1scottd.WeatherForecastApp.services.WeatherForecastService;
 
 @RestController
 @RequestMapping("/api/weatherforecast")
 public class WeatherForecastController {
 
-  private final IWeatherForecastService weatherForecastService;
-
   @Autowired
-  public WeatherForecastController(IWeatherForecastService weatherForecastService) {
-    this.weatherForecastService = weatherForecastService;
-  }
+  private IWeatherForecastService weatherForecastService;
 
   @GetMapping("/")
   public String index() {
@@ -24,7 +22,9 @@ public class WeatherForecastController {
   }
 
   @GetMapping("/{id}")
-  public WeatherForecast getWeatherForecastById(@PathVariable Long id) {
-    return weatherForecastService.getWeatherForecastById(id);
+  public ResponseEntity<List<WeatherForecastResponse>> getWeatherForecastById(@PathVariable Long id) {
+    List<WeatherForecastResponse> weatherForecastList = weatherForecastService.getWeatherForecastResponsesById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Weather Forecast not found for id: " + id));
+    return ResponseEntity.ok(weatherForecastList);
   }
 }
