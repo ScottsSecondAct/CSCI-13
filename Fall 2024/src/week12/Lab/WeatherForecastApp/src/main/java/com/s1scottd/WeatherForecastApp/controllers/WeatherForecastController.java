@@ -33,7 +33,7 @@ import com.s1scottd.WeatherForecastApp.exception.ResourceNotFoundException;
 import com.s1scottd.WeatherForecastApp.services.IWeatherForecastService;
 
 @RestController
-@RequestMapping("/api/weatherforecast")
+@RequestMapping("/api/weather-forecast")
 public class WeatherForecastController {
 
   @Autowired
