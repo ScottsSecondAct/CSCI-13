@@ -17,6 +17,9 @@ const theme = createTheme({
     background: {
       default: "#f5f5f5", // Customize background color
     },
+    formBackground: {
+      main: "#e3f2fd",
+    },
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',

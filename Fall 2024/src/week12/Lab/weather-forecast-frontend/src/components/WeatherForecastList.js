@@ -24,6 +24,13 @@ const WeatherForecastList = ({ weatherForecasts }) => (
               {forecast.temperatureUnit}
             </Typography>
             <Typography>
+              <strong>Wind:</strong> {forecast.windSpeed}{" "}
+              {forecast.windDirection}
+            </Typography>
+            <Typography>
+              <strong>Chance of Preciptiation:</strong>{" "}
+            </Typography>
+            <Typography>
               <strong>Condition:</strong> {forecast.shortForecast}
             </Typography>
             <Typography>

@@ -1,6 +1,5 @@
 import React from "react";
-import { FormControl, Select, MenuItem, Typography } from "@mui/material";
-import { FilePresent } from "@mui/icons-material";
+import { FormControl, Select, MenuItem } from "@mui/material";
 
 const StreetAddressDropdown = ({
   streetAddresses,
@@ -8,9 +7,7 @@ const StreetAddressDropdown = ({
   onStreetAddressChange,
 }) => (
   <>
-    {/* <Typography variant="subtitle1" sx={{ mb: 1 }}>
-      Saved Street Addresses
-    </Typography> */}
+
     <FormControl fullWidth>
       <Select
         labelId="street-address-list-label"
