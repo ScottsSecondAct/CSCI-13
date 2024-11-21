@@ -21,23 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.services;
+ 
+package com.s1scottd.WeatherForecastApp.utils;
 
-import java.util.List;
-import java.util.Optional;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
-import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+import com.s1scottd.WeatherForecastApp.dtos.Location.Location;
 
-public interface IStreetAddressService {
+public class LocationParser {
+	private ObjectMapper objectMapper;
 
-  StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
-  Optional<StreetAddressResponse> getStreetAddressResponseById(Long id);
-  Optional<StreetAddress> getStreetAddressById(Long id);
-  List<StreetAddressResponse> getStreetAddresses();
-  void deleteStreetAddress(Long id);
-  long countStreetAddresses();
-  boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest);
+	public LocationParser() {
+		objectMapper = new ObjectMapper();
+	}
 
+	public Location ToLocationObject(String jsonString) {
+		try {
+			// Convert JSON string to Java Object
+			return objectMapper.readValue(jsonString, Location.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public String ToJsonString(Location location) {
+		try {
+			// Convert Java Object to JSON string
+			return objectMapper.writeValueAsString(location);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
