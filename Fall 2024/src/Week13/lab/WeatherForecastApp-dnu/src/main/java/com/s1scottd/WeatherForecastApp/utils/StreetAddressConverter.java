@@ -21,23 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.services;
-
-import java.util.List;
-import java.util.Optional;
+package com.s1scottd.WeatherForecastApp.utils;
 
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
 
-public interface IStreetAddressService {
+public class StreetAddressConverter {
+  public static StreetAddress streetAddressCreateRequest2StreetAddress(
+      StreetAddressCreateRequest streetAddressCreateRequest) {
+    StreetAddress streetAddress = new StreetAddress();
+    streetAddress.setNumber(streetAddressCreateRequest.getNumber());
+    streetAddress.setStreet(streetAddressCreateRequest.getStreet());
+    streetAddress.setCity(streetAddressCreateRequest.getCity());
+    streetAddress.setState(streetAddressCreateRequest.getState());
+    streetAddress.setZipCode(streetAddressCreateRequest.getZipCode());
 
-  StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
-  Optional<StreetAddressResponse> getStreetAddressResponseById(Long id);
-  Optional<StreetAddress> getStreetAddressById(Long id);
-  List<StreetAddressResponse> getStreetAddresses();
-  void deleteStreetAddress(Long id);
-  long countStreetAddresses();
-  boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest);
+    return streetAddress;
+  }
 
+  public static StreetAddressResponse streetAddress2StreetAddressResponse(StreetAddress streetAddress) {
+    StreetAddressResponse streetAddressResponseDto = new StreetAddressResponse();
+    streetAddressResponseDto.setId(streetAddress.getId());
+    streetAddressResponseDto.setNumber(streetAddress.getNumber());
+    streetAddressResponseDto.setStreet(streetAddress.getStreet());
+    streetAddressResponseDto.setCity(streetAddress.getCity());
+    streetAddressResponseDto.setState(streetAddress.getState());
+    streetAddressResponseDto.setZipCode(streetAddress.getZipCode());
+
+    return streetAddressResponseDto;
+  }
 }

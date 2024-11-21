@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.s1scottd.WeatherForecastApp.models.GridLocation;
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+import com.s1scottd.WeatherForecastApp.repositories.StreetAddressRepository;
 
 @SpringBootTest
 

@@ -21,23 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.services;
+ 
+package com.s1scottd.WeatherForecastApp.dtos.Location;
 
-import java.util.List;
-import java.util.Optional;
+public class Input {
+  private Address address;
+  private Benchmark benchmark;
 
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
-import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+  public Input() {
+  }
 
-public interface IStreetAddressService {
+  // Getters and Setters for Input
+  public Address getAddress() {
+    return address;
+  }
 
-  StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
-  Optional<StreetAddressResponse> getStreetAddressResponseById(Long id);
-  Optional<StreetAddress> getStreetAddressById(Long id);
-  List<StreetAddressResponse> getStreetAddresses();
-  void deleteStreetAddress(Long id);
-  long countStreetAddresses();
-  boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest);
+  public void setAddress(Address address) {
+    this.address = address;
+  }
 
+  public Benchmark getBenchmark() {
+    return benchmark;
+  }
+
+  public void setBenchmark(Benchmark benchmark) {
+    this.benchmark = benchmark;
+  }
 }
+

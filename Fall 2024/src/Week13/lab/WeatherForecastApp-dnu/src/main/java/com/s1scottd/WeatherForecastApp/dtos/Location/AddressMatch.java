@@ -21,23 +21,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.services;
 
-import java.util.List;
-import java.util.Optional;
+package com.s1scottd.WeatherForecastApp.dtos.Location;
 
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
-import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+public class AddressMatch {
+  private TigerLine tigerLine;
+  private Coordinates coordinates;
+  private AddressComponents addressComponents;
+  private String matchedAddress;
 
-public interface IStreetAddressService {
+  public AddressMatch() {
+  }
 
-  StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
-  Optional<StreetAddressResponse> getStreetAddressResponseById(Long id);
-  Optional<StreetAddress> getStreetAddressById(Long id);
-  List<StreetAddressResponse> getStreetAddresses();
-  void deleteStreetAddress(Long id);
-  long countStreetAddresses();
-  boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest);
+  // Getters and Setters for AddressMatch
+  public TigerLine getTigerLine() {
+    return tigerLine;
+  }
 
+  public void setTigerLine(TigerLine tigerLine) {
+    this.tigerLine = tigerLine;
+  }
+
+  public Coordinates getCoordinates() {
+    return coordinates;
+  }
+
+  public void setCoordinates(Coordinates coordinates) {
+    this.coordinates = coordinates;
+  }
+
+  public AddressComponents getAddressComponents() {
+    return addressComponents;
+  }
+
+  public void setAddressComponents(AddressComponents addressComponents) {
+    this.addressComponents = addressComponents;
+  }
+
+  public String getMatchedAddress() {
+    return matchedAddress;
+  }
+
+  public void setMatchedAddress(String matchedAddress) {
+    this.matchedAddress = matchedAddress;
+  }
 }

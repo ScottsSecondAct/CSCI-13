@@ -21,23 +21,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.services;
+package com.s1scottd.WeatherForecastApp.dtos.GridPoint;
 
-import java.util.List;
-import java.util.Optional;
+public class RelativeLocationProperties {
+  private String city;
+  private String state;
+  private Distance distance;
+  private Bearing bearing;
 
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
-import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+  // Default constructor
+  public RelativeLocationProperties() {
+  }
 
-public interface IStreetAddressService {
+  // Getters and setters
+  public String getCity() {
+    return city;
+  }
 
-  StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
-  Optional<StreetAddressResponse> getStreetAddressResponseById(Long id);
-  Optional<StreetAddress> getStreetAddressById(Long id);
-  List<StreetAddressResponse> getStreetAddresses();
-  void deleteStreetAddress(Long id);
-  long countStreetAddresses();
-  boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest);
+  public void setCity(String city) {
+    this.city = city;
+  }
 
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  public Distance getDistance() {
+    return distance;
+  }
+
+  public void setDistance(Distance distance) {
+    this.distance = distance;
+  }
+
+  public Bearing getBearing() {
+    return bearing;
+  }
+
+  public void setBearing(Bearing bearing) {
+    this.bearing = bearing;
+  }
 }

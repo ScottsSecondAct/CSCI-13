@@ -29,7 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.*;
-import com.s1scottd.WeatherForecastApp.exception.ResourceNotFoundException;
+import com.s1scottd.WeatherForecastApp.exceptions.ResourceNotFoundException;
 import com.s1scottd.WeatherForecastApp.services.IWeatherForecastService;
 
 @RestController

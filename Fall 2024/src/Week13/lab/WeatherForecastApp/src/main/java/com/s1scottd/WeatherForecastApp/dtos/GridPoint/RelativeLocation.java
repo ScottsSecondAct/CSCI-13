@@ -21,23 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.services;
+ 
+package com.s1scottd.WeatherForecastApp.dtos.GridPoint;
 
-import java.util.List;
-import java.util.Optional;
+public class RelativeLocation {
+  private String type;
+  private Geometry geometry;
+  private RelativeLocationProperties properties;
 
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
-import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+  // Default constructor
+  public RelativeLocation() {
+  }
 
-public interface IStreetAddressService {
+  // Getters and setters
+  public String getType() {
+    return type;
+  }
 
-  StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
-  Optional<StreetAddressResponse> getStreetAddressResponseById(Long id);
-  Optional<StreetAddress> getStreetAddressById(Long id);
-  List<StreetAddressResponse> getStreetAddresses();
-  void deleteStreetAddress(Long id);
-  long countStreetAddresses();
-  boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest);
+  public void setType(String type) {
+    this.type = type;
+  }
 
+  public Geometry getGeometry() {
+    return geometry;
+  }
+
+  public void setGeometry(Geometry geometry) {
+    this.geometry = geometry;
+  }
+
+  public RelativeLocationProperties getProperties() {
+    return properties;
+  }
+
+  public void setProperties(RelativeLocationProperties properties) {
+    this.properties = properties;
+  }
 }

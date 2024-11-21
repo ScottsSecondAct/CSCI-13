@@ -21,23 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.services;
+package com.s1scottd.WeatherForecastApp.models;
 
-import java.util.List;
-import java.util.Optional;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
-import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+@Entity
+public class GridLocation {
 
-public interface IStreetAddressService {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id;
 
-  StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest);
-  Optional<StreetAddressResponse> getStreetAddressResponseById(Long id);
-  Optional<StreetAddress> getStreetAddressById(Long id);
-  List<StreetAddressResponse> getStreetAddresses();
-  void deleteStreetAddress(Long id);
-  long countStreetAddresses();
-  boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest);
+  String gridId;
+  int gridX;
+  int gridY;
 
+  public GridLocation() {
+  }
+
+  public GridLocation(String gridId, int gridX, int gridY) {
+    this.gridId = gridId;
+    this.gridX = gridX;
+    this.gridY = gridY;
+  }
+
+  public String getGridId() {
+    return gridId;
+  }
+
+  public void setGridId(String gridId) {
+    this.gridId = gridId;
+  }
+
+  public int getGridX() {
+    return gridX;
+  }
+
+  public void setGirdX(int gridX) {
+    this.gridX = gridX;
+  }
+
+  public int getGridY() {
+    return gridY;
+  }
+
+  public void setGridY(int gridY) {
+    this.gridY = gridY;
+  }
 }

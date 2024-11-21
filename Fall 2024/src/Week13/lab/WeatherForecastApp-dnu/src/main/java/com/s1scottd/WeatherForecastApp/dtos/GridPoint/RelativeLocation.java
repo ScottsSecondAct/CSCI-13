@@ -21,14 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.repositiories;
+ 
+package com.s1scottd.WeatherForecastApp.dtos.GridPoint;
 
-import com.s1scottd.WeatherForecastApp.models.StreetAddress;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-@Repository
-public interface StreetAddressRepository extends JpaRepository<StreetAddress, Long> {
+public class RelativeLocation {
+  private String type;
+  private Geometry geometry;
+  private RelativeLocationProperties properties;
 
-  StreetAddress findByNumberAndStreetAndCityAndStateAndZipCode(String number, String street, String city, String state,
-      String zipCode);
+  // Default constructor
+  public RelativeLocation() {
+  }
+
+  // Getters and setters
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public Geometry getGeometry() {
+    return geometry;
+  }
+
+  public void setGeometry(Geometry geometry) {
+    this.geometry = geometry;
+  }
+
+  public RelativeLocationProperties getProperties() {
+    return properties;
+  }
+
+  public void setProperties(RelativeLocationProperties properties) {
+    this.properties = properties;
+  }
 }
