@@ -21,40 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
- 
+
 package com.s1scottd.WeatherForecastApp.utils;
 
 import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.WeatherForecast;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Component
 public class WeatherForecastParser {
 
-	private ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
-	public WeatherForecastParser() {
-		objectMapper = new ObjectMapper();
-	}
+  public WeatherForecastParser() {
+    objectMapper = new ObjectMapper();
+  }
 
-	public WeatherForecast ToWeatherForecastObject(String jsonString) {
+  public WeatherForecast toWeatherForecastObject(String jsonString) {
 
-		try {
-			// Convert JSON string to Java Object
-			return objectMapper.readValue(jsonString, WeatherForecast.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    try {
+      // Convert JSON string to Java Object
+      return objectMapper.readValue(jsonString, WeatherForecast.class);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
 
-	public String ToJsonString(WeatherForecast weatherForecast) {
+  public String ToJsonString(WeatherForecast weatherForecast) {
 
-		try {
-			// Convert Java Object to JSON string
-			return objectMapper.writeValueAsString(weatherForecast);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    try {
+      // Convert Java Object to JSON string
+      return objectMapper.writeValueAsString(weatherForecast);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
 }

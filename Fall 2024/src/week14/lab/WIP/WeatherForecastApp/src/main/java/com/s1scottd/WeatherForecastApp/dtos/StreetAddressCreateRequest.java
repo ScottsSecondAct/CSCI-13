@@ -22,17 +22,31 @@
  * SOFTWARE.
  */
 
- package com.s1scottd.WeatherForecastApp.dtos;
+package com.s1scottd.WeatherForecastApp.dtos;
 
- public class StreetAddressCreateRequest {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public class StreetAddressCreateRequest {
 
   // Fields
+  @NotBlank(message = "Street number is required")
   private String number; // Street number
+
+  @NotBlank(message = "State is required")
+  @Size(min = 2, max = 2, message = "State must be a 2-character code")
   private String street;
+
+  @NotBlank(message = "City is required")
   private String city;
+
+  @NotBlank(message = "State is required")
+  @Size(min = 2, max = 2, message = "State must be a 2-character code")
   private String state;
+
+  @NotBlank(message = "ZIP code is required")
+  @Size(min = 5, max = 10, message = "ZIP code must be between 5 and 10 characters")
   private String zipCode;
-  private String country;
 
   // Default constructor
   public StreetAddressCreateRequest() {
@@ -79,24 +93,14 @@
     this.zipCode = zipCode;
   }
 
-  public String getCountry() {
-    return country;
-  }
-
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
   @Override
   public String toString() {
-    return "StreetAddressRequestDto{" +
-            "number='" + number + '\'' +
-            ", street='" + street + '\'' +
-            ", city='" + city + '\'' +
-            ", state='" + state + '\'' +
-            ", zipCode='" + zipCode + '\'' +
-            ", country='" + country + '\'' +
-            '}';
+    return "StreetAddressCreateRequest{" +
+        "number='" + number + '\'' +
+        ", street='" + street + '\'' +
+        ", city='" + city + '\'' +
+        ", state='" + state + '\'' +
+        ", zipCode='" + zipCode + '\'' +
+        '}';
   }
 }
-

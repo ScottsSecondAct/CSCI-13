@@ -35,29 +35,32 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.s1scottd.WeatherForecastApp.dtos.GridPoint.GridPoint;
-import com.s1scottd.WeatherForecastApp.utils.GridPointUtils;
+import org.springframework.stereotype.Component;
 
+import com.s1scottd.WeatherForecastApp.models.GridLocation;
+
+@Component
 public class WeatherForecastApiClient {
   private static final Logger LOGGER = Logger.getLogger(WeatherForecastApiClient.class.getName());
   private static final String BASE_URL = "https://api.weather.gov/gridpoints/";
 
-  public Optional<String> getWeatherForecast(GridPoint gridPoint) {
+  // https://api.weather.gov/gridpoints/STO/53,76/forecast
+  public Optional<String> getWeatherForecast(GridLocation gridLocation) {
     String apiUri = String.format("%s%s/%d,%d/forecast", BASE_URL,
-      GridPointUtils.getGridId(gridPoint),
-      GridPointUtils.getGridX(gridPoint),
-      GridPointUtils.getGridY(gridPoint));
+        gridLocation.getGridId(),
+        gridLocation.getGridX(),
+        gridLocation.getGridY());
 
     HttpClient client = HttpClient.newBuilder()
-      .connectTimeout(Duration.ofSeconds(10)) // Set a timeout for connection
-      .followRedirects(HttpClient.Redirect.NORMAL) // Follow 301/302 redirects automatically
-      .build();
+        .connectTimeout(Duration.ofSeconds(10)) // Set a timeout for connection
+        .followRedirects(HttpClient.Redirect.NORMAL) // Follow 301/302 redirects automatically
+        .build();
 
     HttpRequest request = HttpRequest.newBuilder()
-      .uri(URI.create(apiUri.toString()))
-      .timeout(Duration.ofSeconds(10)) // Set a timeout for the request
-      .GET()
-      .build();
+        .uri(URI.create(apiUri.toString()))
+        .timeout(Duration.ofSeconds(10)) // Set a timeout for the request
+        .GET()
+        .build();
 
     try {
       // Send the request and receive the response

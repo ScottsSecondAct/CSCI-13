@@ -1,53 +1,95 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) 2024 Scott Davis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.s1scottd.WeatherForecastApp.controllers;
 
+import java.net.URI;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import jakarta.validation.Valid;
 
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponseDto;
+import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
+import com.s1scottd.WeatherForecastApp.exceptions.DuplicateResourceException;
+import com.s1scottd.WeatherForecastApp.exceptions.ResourceNotFoundException;
 import com.s1scottd.WeatherForecastApp.services.IStreetAddressService;
-import com.s1scottd.WeatherForecastApp.services.StreetAddressService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.s1scottd.WeatherForecastApp.services.IConfigurationService;
 
 @RestController
 @RequestMapping("/api/street-address")
 public class StreetAddressController {
-  private static final Logger LOGGER = Logger.getLogger(StreetAddressController.class.getName());
 
   @Autowired
-  private final IStreetAddressService streetAddressService;
+  private IStreetAddressService streetAddressService;
 
-  public StreetAddressController(StreetAddressService streetAddressService) {
-    this.streetAddressService = streetAddressService;
-  }
+  @Autowired
+  private IConfigurationService configurationService;
 
   @GetMapping("/")
-  public ResponseEntity<List<StreetAddressResponseDto>> getAllStreetAddresses() {
-    return new ResponseEntity<>(streetAddressService.getStreetAddresses(), HttpStatus.OK);
+  public ResponseEntity<List<StreetAddressResponse>> getAllStreetAddresses() {
+    return ResponseEntity.ok(streetAddressService.getStreetAddresses());
+  }
+
+  @GetMapping("/last-used-street-address")
+  public ResponseEntity<Long> getLastUsedStreetAddressId() {
+    Long lastUsedStreetAddressId = configurationService.getLastUsedStreetAddressId()
+      .orElseThrow (() -> new ResourceNotFoundException("Last used street address not found"));
+
+    return ResponseEntity.ok(lastUsedStreetAddressId);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<StreetAddressResponseDto> getStreetAddressById(@PathVariable Long id) {
-    StreetAddressResponseDto streetAddressResponseDto = streetAddressService.getStreetAddressResponseById(id);
-    if (streetAddressResponseDto != null) {
-      return new ResponseEntity<>(streetAddressResponseDto, HttpStatus.CREATED);
-    } else {
-      return new ResponseEntity<>(new StreetAddressResponseDto(), HttpStatus.BAD_REQUEST);
-    }
+  public ResponseEntity<StreetAddressResponse> getStreetAddressById(@PathVariable Long id) {
+    StreetAddressResponse streetAddressResponse = streetAddressService.getStreetAddressResponseById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Street address not found for id: " + id));
+
+
+    return ResponseEntity.ok(streetAddressResponse);
   }
 
   @PostMapping("/")
-  public ResponseEntity<StreetAddressResponseDto> setStreetAddress(@RequestBody StreetAddressCreateRequest streetAddressCreateRequest) {
-    LOGGER.log(Level.INFO, "streetAddressCreateRequest: " + streetAddressCreateRequest.toString());
-    StreetAddressResponseDto streetAddressResponseDto = streetAddressService.saveStreetAddress(streetAddressCreateRequest);
+  public ResponseEntity<StreetAddressResponse> setStreetAddress(
+      @Valid @RequestBody StreetAddressCreateRequest streetAddressCreateRequest) {
 
-    if (streetAddressResponseDto != null) {
-      return new ResponseEntity<>(streetAddressResponseDto, HttpStatus.CREATED);
+    if (streetAddressService.streetAddressExists(streetAddressCreateRequest)) {
+      throw new DuplicateResourceException("User already exists");
     }
-    return new ResponseEntity<>(new StreetAddressResponseDto(), HttpStatus.BAD_REQUEST);
+
+    StreetAddressResponse streetAddressResponse = streetAddressService.saveStreetAddress(streetAddressCreateRequest);
+
+    URI location = ServletUriComponentsBuilder
+        .fromCurrentRequest()
+        .path("/{id}")
+        .buildAndExpand(streetAddressResponse.getId())
+        .toUri();
+
+    configurationService.saveLastUsedStreetAddressId(streetAddressResponse.getId());
+
+    return ResponseEntity.created(location).body(streetAddressResponse);
   }
 }

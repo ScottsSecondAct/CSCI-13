@@ -1,3 +1,26 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) 2024 Scott Davis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.s1scottd.WeatherForecastApp.services;
 
 import java.util.ArrayList;
@@ -7,52 +30,55 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.s1scottd.WeatherForecastApp.models.GridLocation;
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+import com.s1scottd.WeatherForecastApp.repositories.StreetAddressRepository;
 import com.s1scottd.WeatherForecastApp.clients.GridPointApiClient;
 import com.s1scottd.WeatherForecastApp.clients.LocationApiClient;
 import com.s1scottd.WeatherForecastApp.dtos.StreetAddressCreateRequest;
-import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponseDto;
+import com.s1scottd.WeatherForecastApp.dtos.StreetAddressResponse;
 import com.s1scottd.WeatherForecastApp.dtos.GridPoint.GridPoint;
 import com.s1scottd.WeatherForecastApp.dtos.Location.Location;
-import com.s1scottd.WeatherForecastApp.repositiories.StreetAddressRepository;
 import com.s1scottd.WeatherForecastApp.utils.GridPointParser;
-import com.s1scottd.WeatherForecastApp.utils.GridPointUtils;
 import com.s1scottd.WeatherForecastApp.utils.LocationParser;
 import com.s1scottd.WeatherForecastApp.utils.StreetAddressConverter;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Service
 public class StreetAddressService implements IStreetAddressService {
-
-  private final StreetAddressRepository streetAddressRepository;
-
+  
   @Autowired
-  public StreetAddressService(StreetAddressRepository streetAddressRepository) {
-    this.streetAddressRepository = streetAddressRepository;
-  }
+  private StreetAddressRepository streetAddressRepository;
+  
+  private static final Logger LOGGER = Logger.getLogger(StreetAddressService.class.getName());
 
   @Override
-  public StreetAddressResponseDto saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest) {
-    // Get the gridId, gridX and gridY
+  public StreetAddressResponse saveStreetAddress(StreetAddressCreateRequest streetAddressCreateRequest) {
+    // Convert a StreetAddressCreateRequest object to a StreetAddress object
+    StreetAddress streetAddress = StreetAddressConverter
+        .streetAddressCreateRequest2StreetAddress(streetAddressCreateRequest);
 
-    // Convert a StreetAddressCreateRequest to a AtreetAddress
-    StreetAddress streetAddress = StreetAddressConverter.streetAddressCreateRequest2StreetAddress(streetAddressCreateRequest);
-
-    // Get the GridPoint for the street address
-    Optional<GridPoint> gridPoint = getGridPoint(streetAddress);
+    // Get the GridPoint object for the street address
+    Optional<GridPoint> gridPoint = getGridPointFromStreetAddress(streetAddress);
     if (gridPoint.isEmpty()) {
+      LOGGER.log(Level.WARNING, "Failed to get grid point");
       return null;
     }
 
-    // Store the gridId, gridX and gridY in the street address
-    streetAddress.setGridPoint(gridPoint.get());
+    // Convert the GridPoint object to GridLocation object
+    GridLocation gridLocation = new GridPointParser().getGridLocation(gridPoint.get());
+
+    // Store the GridPoint object in the Street Address object
+    streetAddress.setGridLocation(gridLocation);
     StreetAddress savedStreetAddress = streetAddressRepository.save(streetAddress);
 
-    return StreetAddressConverter.streetAddress2StreetAddressResponseDto(savedStreetAddress);
+    return StreetAddressConverter.streetAddress2StreetAddressResponse(savedStreetAddress);
   }
 
-
   // Get a grid point for a street address
-  Optional<GridPoint> getGridPoint(StreetAddress streetAddress) {
+  Optional<GridPoint> getGridPointFromStreetAddress(StreetAddress streetAddress) {
     // Convert the street address to a location
     LocationApiClient locationApiClient = new LocationApiClient();
     Optional<String> locationString = locationApiClient.getLocation(streetAddress);
@@ -81,33 +107,28 @@ public class StreetAddressService implements IStreetAddressService {
   }
 
   @Override
-  public StreetAddress getStreetAddressById(Long id) {
-    Optional<StreetAddress> streetAddress = streetAddressRepository.findById(id);
-
-    if (streetAddress.isPresent()) {
-      return streetAddress.get();
-    }
-    return null;
-  }
-
-    @Override
-  public StreetAddressResponseDto getStreetAddressResponseDtoById(Long id) {
-    Optional<StreetAddress> streetAddress = streetAddressRepository.findById(id);
-
-    if (streetAddress.isPresent()) {
-      return StreetAddressConverter.streetAddress2StreetAddressResponseDto(streetAddress.get());
-    }
-    return null;
+  public Optional<StreetAddress> getStreetAddressById(Long id) {
+    return streetAddressRepository.findById(id);
   }
 
   @Override
-  public List<StreetAddressResponseDto> getStreetAddresses() {
+  public Optional<StreetAddressResponse> getStreetAddressResponseById(Long id) {
+    Optional<StreetAddress> streetAddress = streetAddressRepository.findById(id);
+
+    if (streetAddress.isPresent()) {
+      return Optional.ofNullable(StreetAddressConverter.streetAddress2StreetAddressResponse(streetAddress.get()));
+    }
+    return Optional.empty();
+  }
+
+  @Override
+  public List<StreetAddressResponse> getStreetAddresses() {
     List<StreetAddress> streetAddresses = streetAddressRepository.findAll();
 
-    List<StreetAddressResponseDto> streetAddressResponseDtos = new ArrayList<>();
+    List<StreetAddressResponse> streetAddressResponseDtos = new ArrayList<>();
     for (StreetAddress streetAddress : streetAddresses) {
-      StreetAddressResponseDto streetAddressResponseDto = StreetAddressConverter
-          .streetAddress2StreetAddressResponseDto(streetAddress);
+      StreetAddressResponse streetAddressResponseDto = StreetAddressConverter
+          .streetAddress2StreetAddressResponse(streetAddress);
       streetAddressResponseDtos.add(streetAddressResponseDto);
     }
     return streetAddressResponseDtos;
@@ -121,5 +142,16 @@ public class StreetAddressService implements IStreetAddressService {
   @Override
   public long countStreetAddresses() {
     return streetAddressRepository.count();
+  }
+
+  @Override
+  public boolean streetAddressExists(StreetAddressCreateRequest streetAddressCreateRequest) {
+    StreetAddress streetAddress = StreetAddressConverter
+        .streetAddressCreateRequest2StreetAddress(streetAddressCreateRequest);
+    StreetAddress duplicateStreetAddress = streetAddressRepository.findByNumberAndStreetAndCityAndStateAndZipCode(
+        streetAddress.getNumber(),
+        streetAddress.getStreet(), streetAddress.getCity(), streetAddress.getState(), streetAddress.getZipCode());
+
+    return duplicateStreetAddress != null;
   }
 }
