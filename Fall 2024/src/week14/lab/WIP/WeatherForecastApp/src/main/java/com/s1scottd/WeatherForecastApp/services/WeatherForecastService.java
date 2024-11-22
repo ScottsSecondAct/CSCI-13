@@ -1,3 +1,26 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) 2024 Scott Davis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.s1scottd.WeatherForecastApp.services;
 
 import org.springframework.stereotype.Service;
@@ -7,57 +30,68 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.Period;
 import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.WeatherForecast;
-import com.s1scottd.WeatherForecastApp.dtos.GridPoint.GridPoint;
+import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.WeatherForecastResponse;
+import com.s1scottd.WeatherForecastApp.clients.WeatherForecastApiClient;
+import com.s1scottd.WeatherForecastApp.models.GridLocation;
 import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+import com.s1scottd.WeatherForecastApp.utils.WeatherForecastConverter;
+import com.s1scottd.WeatherForecastApp.utils.WeatherForecastParser;
+import com.s1scottd.WeatherForecastApp.utils.WeatherForecastUtils;
 
 @Service
 public class WeatherForecastService implements IWeatherForecastService {
 
-  private final IStreetAddressService streetAddressService;
+  @Autowired
+  private IStreetAddressService streetAddressService;
 
   @Autowired
-  public WeatherForecastService(IStreetAddressService streetAddressService) {
-    this.streetAddressService = streetAddressService;
-  }
+  private WeatherForecastApiClient weatherForecastApiClient;
+
+  @Autowired
+  private WeatherForecastParser weatherForecastParser;
 
   @Override
-  public WeatherForecast getWeatherForecastById(Long id)
-  {
-    StreetAddress streetAddress = streetAddressService.getStreetAddressById(id);
+  public Optional<List<WeatherForecastResponse>> getWeatherForecastResponsesById(Long id) {
+    // get the street address by id
+    Optional<StreetAddress> streetAddress = streetAddressService.getStreetAddressById(id);
 
-    if (streetAddress != null) {
-      return getWeatherForecast(streetAddress.getGridPoint());
+    if (!streetAddress.isPresent()) {
+      return Optional.empty();
+    }
+
+    // get the grid location from the street address
+    GridLocation gridLocation = streetAddress.get().getGridLocation();
+
+    // get the weather forecast from the grid location
+    Optional<WeatherForecast> weatherForecast = getWeatherForecast(gridLocation);
+
+    if (!weatherForecast.isPresent()) {
+      return Optional.empty();
+    }
+
+    // convert the WeatherForecast object to a List of WeatherForecastResponse object
+    List<WeatherForecastResponse> weatherForecastResponses = new ArrayList<>();
+    List<Period> periods = WeatherForecastUtils.getPeriods(weatherForecast.get());
+    for (Period period : periods) {
+      WeatherForecastResponse weatherForecastResponse = new WeatherForecastResponse();
+      weatherForecastResponse = WeatherForecastConverter.weatherForecastPeriod2WeatherForecastResponse(period);
+      weatherForecastResponses.add(weatherForecastResponse);
+    }
+
+    // return the WeatherForecastResponse object
+    return Optional.of(weatherForecastResponses);
+  }
+
+  public Optional<WeatherForecast> getWeatherForecast(GridLocation gridLocation) {
+    Optional<String> forecast = weatherForecastApiClient.getWeatherForecast(gridLocation);
+
+    if (forecast.isPresent()) {
+      return Optional.of(weatherForecastParser.toWeatherForecastObject(forecast.get()));
     } else {
-      return null;
+      return Optional.empty();
     }
   }
-
-  public static Optional<WeatherForecast> getWeatherForecast(GridPoint gridPoint) {
-  WeatherForecastApiClient client = new WeatherForecastApiClient();
-  Optional<String> forecast = client.getWeatherForecast(gridPoint);
-
-  if (forecast.isPresent()) {
-  WeatherForecastParser weatherForecastParser = new WeatherForecastParser();
-  return
-  Optional.of(weatherForecastParser.ToWeatherForecastObject(forecast.get()));
-  } else {
-  return Optional.empty();
-  }
-  }
-
-  public void printWeatherForecastForWeek() {
-  Properties properties = getProperties();
-
-  StringBuilder sb = new StringBuilder();
-
-  for (Period period : properties.getPeriods()) {
-  sb.append(period.toString()).append("\n");
-  sb.append("\n");
-  }
-  System.out.println(sb.toString());
-  }
 }
-

@@ -21,45 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+ package com.s1scottd.WeatherForecastApp.dtos;
 
-@Entity
-public class StreetAddress {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+public class StreetAddressResponse {
 
   // Fields
-  private String number;
+  private Long id;
+  private String number; // Street number
   private String street;
   private String city;
   private String state;
   private String zipCode;
+  private Boolean lastUsed;
 
-  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "grid_location_id", nullable = false) // Optional: Customize the join column name
-  private GridLocation gridLocation;
-
-  // Default constructor
-  public StreetAddress() {
-  }
-
-  // Parameterized constructor
-  public StreetAddress(String number, String street, String city, String state, String zipCode) {
-    this.number = number;
-    this.street = street;
-    this.city = city;
-    this.state = state;
-    this.zipCode = zipCode;
+  // Getters and setters
+  public StreetAddressResponse() {
   }
 
   // Getters and Setters
@@ -111,23 +88,18 @@ public class StreetAddress {
     this.zipCode = zipCode;
   }
 
-  public GridLocation getGridLocation() {
-    return gridLocation;
+  public Boolean getLastUsed() {
+    return lastUsed;
   }
 
-  public void setGridLocation(GridLocation gridLocation) {
-    this.gridLocation = gridLocation;
-  }
-
-  // For Example, 5200+Sierra+College+Blvd%2C+Rocklin%2C+CA+95677
-  public String formatAddress() {
-    String address = number + "+" + street + "%2C" + "+" + city + "%2C" + "+" + state + "+" + zipCode;
-    return address.replaceAll("\\s+", "+");
+  public void setLastUsed(Boolean lastUsed) {
+    this.lastUsed = lastUsed;
   }
 
   // toString method
   @Override
   public String toString() {
-    return number + " " + street + ", " + city + ", " + state + " " + zipCode;
+    return id + " " + number + " " + street + ", " + city + ", " +
+      state + " " + zipCode;
   }
 }

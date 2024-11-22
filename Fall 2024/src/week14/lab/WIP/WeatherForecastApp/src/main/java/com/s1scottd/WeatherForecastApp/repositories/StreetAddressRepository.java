@@ -21,19 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.s1scottd.WeatherForecastApp.utils;
+package com.s1scottd.WeatherForecastApp.repositories;
 
-import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.WeatherForecast;
-import com.s1scottd.WeatherForecastApp.dtos.WeatherForecast.Period;
+import com.s1scottd.WeatherForecastApp.models.StreetAddress;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+@Repository
+public interface StreetAddressRepository extends JpaRepository<StreetAddress, Long> {
 
-public class WeatherForecastPrinter {
-
-    public void printWeatherForecastForWeek(WeatherForecast weatherForecast) {
-        StringBuilder sb = new StringBuilder();
-        for (Period period : weatherForecast.getProperties().getPeriods()) {
-            sb.append(period.toString()).append("\n\n");
-        }
-        System.out.println(sb.toString());
-    }
+  StreetAddress findByNumberAndStreetAndCityAndStateAndZipCode(String number, String street, String city, String state,
+      String zipCode);
 }
-

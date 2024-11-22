@@ -21,37 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
- 
+
 package com.s1scottd.WeatherForecastApp.utils;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.s1scottd.WeatherForecastApp.dtos.GridPoint.GridPoint;
+import com.s1scottd.WeatherForecastApp.models.GridLocation;
 
 public class GridPointParser {
   private ObjectMapper objectMapper;
 
-	public GridPointParser() {
-		objectMapper = new ObjectMapper();
-	}
+  public GridPointParser() {
+    objectMapper = new ObjectMapper();
+  }
 
-	public GridPoint ToGridPointObject(String jsonString) {
-		try {
-			// Convert JSON string to Java Object
-			return objectMapper.readValue(jsonString, GridPoint.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+  public GridPoint ToGridPointObject(String jsonString) {
+    try {
+      // Convert JSON string to Java Object
+      return objectMapper.readValue(jsonString, GridPoint.class);
+    } catch (StreamReadException e) {
+      e.getMessage();
+      return null;
+    } catch (Exception e) {
+      e.getMessage();
+      return null;
+    }
+  }
 
-	public String ToJsonString(GridPoint gridPoint) {
-		try {
-			// Convert Java Object to JSON string
-			return objectMapper.writeValueAsString(gridPoint);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+  public String ToJsonString(GridPoint gridPoint) {
+    try {
+      // Convert Java Object to JSON string
+      return objectMapper.writeValueAsString(gridPoint);
+    } catch (JsonParseException e) {
+      e.getMessage();
+      return null;
+    } catch (Exception e) {
+      e.getMessage();
+      return null;
+    }
+  }
+
+  public GridLocation getGridLocation(GridPoint gridPoint) {
+    return new GridLocation(gridPoint.getProperties().getGridId(), gridPoint.getProperties()
+        .getGridX(), gridPoint.getProperties().getGridY());
+  }
 }

@@ -27,6 +27,16 @@ const App = () => {
         `${config.API_BASE_URL}/street-address/`
       );
       setStreetAddresses(response.data);
+
+      const lastUseStreetAddressResponse = await axios.get(
+        "/api/street-adddress/last-used-street-address"
+      );
+      const lastUsedStreetAddress = lastUseStreetAddressResponse.data;
+
+      if (lastUsedStreetAddress) {
+        setSelectedStreetAddress(lastUsedStreetAddress.id);
+        fetchWeatherForecasts(lastUsedStreetAddress.id);
+      }
     } catch (error) {
       console.error("Error fetching addresses:", error);
     }
