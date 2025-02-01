@@ -1,5 +1,5 @@
 # CSCI-13 
-- PowerPoint Presentations
+## This repository contains the material I covered teaching CSCI-13: Programming Concepts and Methodology II at Sierra College
 - Class Assignments
 - Source Code
 - Labs
