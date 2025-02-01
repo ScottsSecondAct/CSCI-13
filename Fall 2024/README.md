@@ -2,7 +2,9 @@
 
 ## Fall 2024
 
-Directory Structure
+### Directory Structure
+
+This is a representation of the directory structure in the repository.
 
 ```text
 /Fall 2024
@@ -10,7 +12,6 @@ Directory Structure
     │   └── Git and GitHub FAQ.docx
     │   └── Tutorial on Git and GitHub.docx
     │   └── World Time Api Lab.docx
-    │   └── Week 6 Lab.docx
     │     ...
     ├── /src
     │   ├── /week2
