@@ -1,6 +1,6 @@
 # CSCI 13: Programming Concepts and Methodology
 
-[![License](https://img.shields.io/badge/License-Source_Available-lightgrey.svg)](LICENSE) [![Claude Assisted](https://img.shields.io/badge/Claude-Assisted-blueviolet?logo=anthropic&logoColor=white)](https://claude.ai)
+[![License](https://img.shields.io/badge/License-Source_Available-lightgrey.svg)](LICENSE) ![AI Assisted](https://img.shields.io/badge/AI%20Assisted-Claude-blue?logo=anthropic)
 
 Course material for **CSCI 13: Programming Concepts and Methodology** at Sierra College.
 
